@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct RootView: View {
+    @State private var showSplash = true
     @State private var isAuthenticated = false
     @State private var hasCompletedOnboarding = false
-    @State private var isLoading = true
 
     var body: some View {
-        Group {
-            if isLoading {
-                loadingView
-            } else if !isAuthenticated {
-                // TODO: WelcomeView()
-                placeholderView(title: "Welcome", message: "Auth flow coming soon")
+        ZStack {
+            // Main content
+            if !isAuthenticated {
+                WelcomeView()
             } else if !hasCompletedOnboarding {
                 // TODO: OnboardingView()
                 placeholderView(title: "Onboarding", message: "Onboarding flow coming soon")
@@ -26,22 +24,22 @@ struct RootView: View {
                 // TODO: MainTabView()
                 placeholderView(title: "Home", message: "Main app coming soon")
             }
+
+            // Splash overlay
+            if showSplash {
+                SplashView {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        showSplash = false
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(1)
+            }
         }
-        .task {
-            await checkAuthState()
-        }
+        .animation(.easeInOut, value: showSplash)
     }
 
     // MARK: - Views
-
-    private var loadingView: some View {
-        ZStack {
-            AppColors.backgroundPrimary
-                .ignoresSafeArea()
-            ProgressView()
-                .tint(AppColors.primarySunset)
-        }
-    }
 
     private func placeholderView(title: String, message: String) -> some View {
         ZStack {
@@ -57,15 +55,6 @@ struct RootView: View {
                     .foregroundStyle(AppColors.textSecondary)
             }
         }
-    }
-
-    // MARK: - Actions
-
-    private func checkAuthState() async {
-        // TODO: Check Supabase auth state
-        // For now, simulate a brief loading state
-        try? await Task.sleep(for: .milliseconds(500))
-        isLoading = false
     }
 }
 
