@@ -1,0 +1,112 @@
+//
+//  SignUpViewModel.swift
+//  PawConnect
+//
+//  Created by Kyle Baker on 1/11/26.
+//
+
+import Foundation
+
+@Observable
+class SignUpViewModel {
+    // MARK: - Form State
+    var fullName = ""
+    var email = ""
+    var password = ""
+    var showPassword = false
+
+    // MARK: - UI State
+    var isLoading = false
+    var error: AppError?
+
+    // MARK: - Validation
+
+    var isFullNameValid: Bool {
+        fullName.trimmingCharacters(in: .whitespaces).count >= 2
+    }
+
+    var isEmailValid: Bool {
+        let emailRegex = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+        return email.range(of: emailRegex, options: .regularExpression) != nil
+    }
+
+    var hasMinLength: Bool {
+        password.count >= Constants.Validation.minPasswordLength
+    }
+
+    var hasNumber: Bool {
+        password.range(of: #"\d"#, options: .regularExpression) != nil
+    }
+
+    var isPasswordValid: Bool {
+        hasMinLength && hasNumber
+    }
+
+    var isFormValid: Bool {
+        isFullNameValid && isEmailValid && isPasswordValid
+    }
+
+    // MARK: - Error Messages
+
+    var fullNameError: String? {
+        guard !fullName.isEmpty else { return nil }
+        return isFullNameValid ? nil : "Name must be at least 2 characters"
+    }
+
+    var emailError: String? {
+        guard !email.isEmpty else { return nil }
+        return isEmailValid ? nil : "Please enter a valid email"
+    }
+
+    // MARK: - Actions
+
+    func signUp() async {
+        guard isFormValid else { return }
+
+        isLoading = true
+        error = nil
+
+        do {
+            // TODO: Implement actual Supabase sign up
+            // try await AuthService.shared.signUp(
+            //     email: email,
+            //     password: password,
+            //     fullName: fullName
+            // )
+
+            // Simulate network delay for now
+            try await Task.sleep(for: .seconds(1.5))
+
+            // Success - navigation will be handled by auth state change
+        } catch let appError as AppError {
+            self.error = appError
+        } catch {
+            self.error = .network(underlying: error)
+        }
+
+        isLoading = false
+    }
+
+    func signUpWithApple() async {
+        isLoading = true
+        error = nil
+
+        do {
+            // TODO: Implement Apple Sign In
+            // try await AuthService.shared.signInWithApple()
+
+            // Simulate network delay for now
+            try await Task.sleep(for: .seconds(1.5))
+        } catch let appError as AppError {
+            self.error = appError
+        } catch {
+            self.error = .network(underlying: error)
+        }
+
+        isLoading = false
+    }
+
+    func clearError() {
+        error = nil
+    }
+}
