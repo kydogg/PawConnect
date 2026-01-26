@@ -78,7 +78,7 @@ struct SignUpView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Create Account")
+            Text("Create Your Account")
                 .font(.largeTitle)
                 .fontWeight(.bold)
                 .foregroundStyle(AppColors.textPrimary)
@@ -189,7 +189,7 @@ struct SignUpView: View {
     }
 
     private var submitButton: some View {
-        Button("Create Account") {
+        Button("Create Your Account") {
             Task {
                 await viewModel.signUp()
             }
