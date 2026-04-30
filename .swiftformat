@@ -1,0 +1,41 @@
+# SwiftFormat Configuration for PawConnect
+# https://github.com/nicklockwood/SwiftFormat
+
+# Swift version
+--swiftversion 5.0
+
+# Formatting rules
+--indent 4
+--indentcase false
+--trimwhitespace always
+--stripunusedargs closure-only
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--closingparen balanced
+--funcattributes prev-line
+--typeattributes prev-line
+--varattributes same-line
+--importgrouping alpha
+--semicolons never
+--commas always
+--decimalgrouping 3,6
+--binarygrouping 4,8
+--octalgrouping 4,8
+--hexgrouping 4,8
+--header strip
+--ifdef no-indent
+--allman false
+--emptybraces no-space
+--self remove
+--selfrequired
+--patternlet hoist
+
+# Disabled rules
+--disable blankLinesAtStartOfScope
+--disable blankLinesAtEndOfScope
+
+# Excluded paths
+--exclude .build,DerivedData,PawConnect/Asset-Staging
