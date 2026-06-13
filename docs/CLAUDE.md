@@ -1,7 +1,7 @@
 # PawConnect AI Development Guide
 
 > **AI Assistant**: This is your ONLY instruction file. Read this completely before any task.
-> Also reference `PRODUCT_SPEC.md` for detailed screen specifications and `DATABASE_SCHEMA.sql` for data structure.
+> Also reference `PRODUCT_SPEC.md` for detailed screen specifications and the SQL migrations in `supabase/migrations/` (`0001_initial_schema.sql`, `0002_storage_buckets.sql`) for data structure.
 
 ---
 
