@@ -1,0 +1,20 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:20px;background:var(--bg-primary);font-family:var(--font-sans)}
+  .grid{display:flex;flex-direction:column;gap:10px}
+  .item{display:flex;align-items:center;gap:12px}
+  .dot{width:36px;height:36px;border-radius:9px;flex-shrink:0;box-shadow:var(--shadow-card)}
+  .lbl{font-size:13px;font-weight:600;color:var(--text-primary)}
+  .desc{font-size:12px;color:var(--text-tertiary)}
+  .hex{margin-left:auto;font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono)}
+</style></head>
+<body>
+  <div class="grid">
+    <div class="item"><div class="dot" style="background:#059669"></div><div><div class="lbl">Success</div><div class="desc">Confirmations, completed care</div></div><div class="hex">#059669</div></div>
+    <div class="item"><div class="dot" style="background:#F59E0B"></div><div><div class="lbl">Warning</div><div class="desc">Gentle reminders, never alarms</div></div><div class="hex">#F59E0B</div></div>
+    <div class="item"><div class="dot" style="background:#DC2626"></div><div><div class="lbl">Error</div><div class="desc">Inline, helpful — not scolding</div></div><div class="hex">#DC2626</div></div>
+    <div class="item"><div class="dot" style="background:#0891B2"></div><div><div class="lbl">Info</div><div class="desc">Neutral system notices</div></div><div class="hex">#0891B2</div></div>
+  </div>
+</body></html>

@@ -1,0 +1,26 @@
+<!-- @dsCard group="Colors" -->
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:0;font-family:var(--font-sans);display:flex}
+  .pane{flex:1;padding:20px}
+  .light{background:#FFFBF5}
+  .dark{background:#1A1613}
+  .ttl{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:12px}
+  .ttl.l{color:#B08968}.ttl.d{color:#B08968}
+  .bar{height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;margin-bottom:8px}
+</style></head>
+<body>
+  <div class="pane light">
+    <div class="ttl l">Light</div>
+    <div class="bar" style="background:#EA580C;color:#fff">Primary · #EA580C</div>
+    <div class="bar" style="background:#FFFBF5;color:#3E342A;box-shadow:inset 0 0 0 1px #FAE5D3">Background · #FFFBF5</div>
+    <div class="bar" style="background:#fff;color:#3E342A;box-shadow:inset 0 0 0 1px #FAE5D3">Surface · #FFFFFF</div>
+  </div>
+  <div class="pane dark">
+    <div class="ttl d">Dark</div>
+    <div class="bar" style="background:#FB923C;color:#1A1613">Primary · #FB923C</div>
+    <div class="bar" style="background:#1A1613;color:#FAE5D3;box-shadow:inset 0 0 0 1px #3E342A">Background · #1A1613</div>
+    <div class="bar" style="background:#27221D;color:#FAE5D3;box-shadow:inset 0 0 0 1px #3E342A">Surface · #27221D</div>
+  </div>
+</body></html>

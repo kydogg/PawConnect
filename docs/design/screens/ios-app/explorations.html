@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Ios App" name="Design explorations" subtitle="Live Activity: icon vs route preview × light/dark; SRCH-01 ×3, SRCH-02 ×2" viewport="1120x640" -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PawConnect — Explorations</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="icons.jsx"></script>
+  <script type="text/babel" src="primitives.jsx"></script>
+  <script type="text/babel" src="shared.jsx"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="explorations.jsx"></script>
+
+  <script type="text/babel">
+    const { DesignCanvas, DCSection, DCArtboard } = window;
+    const { LockMini, SearchVertical, SearchPillBar, SearchHero, ResultsSticky, ResultsSheet } = window;
+
+    function App() {
+      return (
+        <DesignCanvas title="PawConnect · Explorations">
+          <DCSection id="live" title="Live Activity — Walking state" subtitle="Icon vs route preview · light & dark · same Lock Screen surface">
+            <DCArtboard id="icon-l" label="Icon · Light" width={300} height={430}><LockMini variant="icon" /></DCArtboard>
+            <DCArtboard id="route-l" label="Route preview · Light" width={300} height={430}><LockMini variant="route" /></DCArtboard>
+            <DCArtboard id="icon-d" label="Icon · Dark" width={300} height={430}><LockMini dark variant="icon" /></DCArtboard>
+            <DCArtboard id="route-d" label="Route preview · Dark" width={300} height={430}><LockMini dark variant="route" /></DCArtboard>
+          </DCSection>
+
+          <DCSection id="srch01" title="Search Home — SRCH-01" subtitle="Three ways to present service / when / where">
+            <DCArtboard id="v1" label="A · Vertical form" width={300} height={745}><SearchVertical /></DCArtboard>
+            <DCArtboard id="v2" label="B · Horizontal pill bar" width={300} height={665}><SearchPillBar /></DCArtboard>
+            <DCArtboard id="v3" label="C · Hero entry block" width={300} height={545}><SearchHero /></DCArtboard>
+          </DCSection>
+
+          <DCSection id="srch02" title="Results List — SRCH-02" subtitle="Filters: persistent sticky bar vs single button + sheet">
+            <DCArtboard id="r1" label="A · Sticky filter bar" width={300} height={725}><ResultsSticky /></DCArtboard>
+            <DCArtboard id="r2" label="B · Filter button + sheet" width={300} height={740}><ResultsSheet /></DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
