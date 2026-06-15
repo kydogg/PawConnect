@@ -7,31 +7,38 @@
 
 import SwiftUI
 
+/// Brand color tokens, backed by asset-catalog Color Sets so they adapt to
+/// light/dark mode automatically. Brand, accent, and semantic hues are
+/// constant across modes; only background, surface, text, and border tokens
+/// shift. Canonical values: PRODUCT_SPEC.md § Design System Reference.
 enum AppColor {
-    // MARK: - Primary (for glass tinting)
-    static let primarySunset = Color(hex: "#EA580C")
-    static let primaryTerracotta = Color(hex: "#DC2626")
+    // MARK: - Primary (for glass tinting) — constant across modes
+    static let primarySunset = Color("PrimarySunset", bundle: .main)
+    static let primaryTerracotta = Color("PrimaryTerracotta", bundle: .main)
 
-    // MARK: - Secondary
-    static let secondarySage = Color(hex: "#059669")
-    static let secondaryAmber = Color(hex: "#F59E0B")
-    static let secondaryPeach = Color(hex: "#FB923C")
+    // MARK: - Secondary — constant across modes
+    static let secondarySage = Color("SecondarySage", bundle: .main)
+    static let secondaryAmber = Color("SecondaryAmber", bundle: .main)
+    static let secondaryPeach = Color("SecondaryPeach", bundle: .main)
 
     // MARK: - Backgrounds (non-glass content)
-    static let backgroundPrimary = Color(hex: "#FFFBF5")
-    static let backgroundElevated = Color.white
+    static let backgroundPrimary = Color("BackgroundPrimary", bundle: .main)
+    static let backgroundElevated = Color("BackgroundElevated", bundle: .main)
 
     // MARK: - Text
-    static let textPrimary = Color(hex: "#1F1B17")
-    static let textSecondary = Color(hex: "#5D4E37")
-    static let textTertiary = Color(hex: "#B08968")
+    static let textPrimary = Color("TextPrimary", bundle: .main)
+    static let textSecondary = Color("TextSecondary", bundle: .main)
+    static let textTertiary = Color("TextTertiary", bundle: .main)
 
-    // MARK: - Neutrals
-    static let neutral100 = Color(hex: "#F5F5F4")
-    static let neutral150 = Color(hex: "#E7E5E4")
-    static let neutral900 = Color(hex: "#1C1917")
+    // MARK: - Border / divider
+    static let border = Color("Border", bundle: .main)
 
-    // MARK: - Semantic
+    // MARK: - Neutrals (warm ramp — see colors_and_type.css)
+    static let neutral100 = Color("Neutral100", bundle: .main)
+    static let neutral150 = Color("Neutral150", bundle: .main)
+    static let neutral900 = Color("Neutral900", bundle: .main)
+
+    // MARK: - Semantic (constant across modes)
     static let success = secondarySage
     static let warning = secondaryAmber
     static let error = primaryTerracotta
