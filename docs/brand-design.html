@@ -55,19 +55,10 @@
             --spacing-xxxl: 64px;
         }
 
-        /* Dark Theme Variables */
+        /* Dark Theme Variables — only the neutral ramp (backgrounds, surfaces,
+           text) shifts in dark mode. Brand, accent, and semantic hues stay
+           constant across modes (sunset is #EA580C in both). */
         [data-theme="dark"] {
-            --brand-primary-sunset: #FB923C;
-            --brand-primary-terracotta: #F87171;
-
-            --brand-secondary-peach: #FED7AA;
-            --brand-secondary-amber: #FCD34D;
-            --brand-secondary-sage: #34D399;
-
-            --brand-accent-coral: #FCA5A5;
-            --brand-accent-honey: #FDE68A;
-            --brand-accent-mint: #6EE7B7;
-
             --brand-neutral-50: #1A1613;
             --brand-neutral-100: #27221D;
             --brand-neutral-200: #3E342A;
@@ -78,11 +69,6 @@
             --brand-neutral-700: #F0D5C1;
             --brand-neutral-800: #FAE5D3;
             --brand-neutral-900: #FFFBF5;
-
-            --brand-semantic-success: #34D399;
-            --brand-semantic-warning: #FCD34D;
-            --brand-semantic-error: #F87171;
-            --brand-semantic-info: #38BDF8;
         }
 
         body {
@@ -751,7 +737,7 @@
                     <div class="theme-example dark">
                         <h4 style="margin-bottom: 12px;">Dark Theme</h4>
                         <div style="display: grid; gap: 8px;">
-                            <div style="padding: 8px; background: #FB923C; color: #1A1613; border-radius: 6px;">Primary: #FB923C</div>
+                            <div style="padding: 8px; background: #EA580C; color: white; border-radius: 6px;">Primary: #EA580C</div>
                             <div style="padding: 8px; background: #1A1613; color: #FAE5D3; border: 1px solid #3E342A; border-radius: 6px;">Background: #1A1613</div>
                             <div style="padding: 8px; background: #27221D; color: #FAE5D3; border: 1px solid #3E342A; border-radius: 6px;">Surface: #27221D</div>
                         </div>
