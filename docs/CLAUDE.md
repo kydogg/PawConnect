@@ -717,20 +717,20 @@ TabView(selection: $selectedTab) {
 
 ### Colors (AppColors.swift)
 
-**Dark mode is required.** The flat `Color(hex:)` constants below only encode the *light* value, which cannot adapt to dark mode. Implement each color as an **asset-catalog Color Set** (with Any/Dark appearances from the PRODUCT_SPEC table) and reference it by name — e.g. `static let primarySunset = Color("PrimarySunset", bundle: .main)`. Keep `Color(hex:)` only for one-off, mode-independent values. The snippet below documents the light-mode hex values for reference; it is not the final implementation.
+**Dark mode is required.** The flat `Color(hex:)` constants below only encode the *light* value, which cannot adapt to dark mode. Implement each color as an **asset-catalog Color Set** (with Any/Dark appearances from the PRODUCT_SPEC table) and reference it by name — e.g. `static let primarySunset = Color("PrimarySunset", bundle: .main)`. Keep `Color(hex:)` only for one-off, mode-independent values. Note: brand, accent, and semantic hues stay **constant** across light and dark modes (e.g. `#EA580C` in both) — only background, surface, and text tokens have distinct dark values. The snippet below documents the light-mode hex values for reference; it is not the final implementation.
 
 ```swift
 import SwiftUI
 
 enum AppColors {
     // Primary - for glass tinting
-    static let primarySunset = Color(hex: "#EA580C")        // dark: #FB923C
-    static let primaryTerracotta = Color(hex: "#DC2626")    // dark: #F87171
+    static let primarySunset = Color(hex: "#EA580C")        // constant across modes
+    static let primaryTerracotta = Color(hex: "#DC2626")    // constant across modes
     
     // Secondary
-    static let secondarySage = Color(hex: "#059669")        // dark: #34D399
-    static let secondaryAmber = Color(hex: "#F59E0B")       // dark: #FCD34D
-    static let secondaryPeach = Color(hex: "#FB923C")       // dark: #FED7AA
+    static let secondarySage = Color(hex: "#059669")        // constant across modes
+    static let secondaryAmber = Color(hex: "#F59E0B")       // constant across modes
+    static let secondaryPeach = Color(hex: "#FB923C")       // constant across modes
     
     // Backgrounds (non-glass content)
     static let backgroundPrimary = Color(hex: "#FFFBF5")    // dark: #1A1613
