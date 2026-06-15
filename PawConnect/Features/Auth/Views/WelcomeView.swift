@@ -15,7 +15,7 @@ struct WelcomeView: View {
         NavigationStack {
             ZStack {
                 // Background
-                AppColors.backgroundPrimary
+                AppColor.backgroundPrimary
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
@@ -56,7 +56,7 @@ struct WelcomeView: View {
         VStack(spacing: 8) {
             // Logo Icon
             RoundedRectangle(cornerRadius: 12)
-                .fill(AppColors.primarySunset)
+                .fill(AppColor.primarySunset)
                 .frame(width: 48, height: 48)
                 .overlay {
                     Image(systemName: "pawprint.fill")
@@ -68,12 +68,12 @@ struct WelcomeView: View {
             Text("PawConnect")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundStyle(AppColors.textPrimary)
+                .foregroundStyle(AppColor.textPrimary)
 
             // Tagline
             Text("Peace of mind, one paw at a time")
                 .font(.body)
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
         }
     }
 
@@ -83,8 +83,8 @@ struct WelcomeView: View {
             .fill(
                 LinearGradient(
                     colors: [
-                        AppColors.primarySunset.opacity(0.1),
-                        AppColors.secondaryPeach.opacity(0.1)
+                        AppColor.primarySunset.opacity(0.1),
+                        AppColor.secondaryPeach.opacity(0.1)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -95,10 +95,10 @@ struct WelcomeView: View {
                 VStack(spacing: 12) {
                     Image(systemName: "person.and.dog")
                         .font(.system(size: 60))
-                        .foregroundStyle(AppColors.primarySunset.opacity(0.5))
+                        .foregroundStyle(AppColor.primarySunset.opacity(0.5))
                     Text("Your pets deserve the best care")
                         .font(.subheadline)
-                        .foregroundStyle(AppColors.textTertiary)
+                        .foregroundStyle(AppColor.textTertiary)
                 }
             }
             .padding(.horizontal, Constants.UI.standardPadding)
@@ -128,7 +128,7 @@ struct WelcomeView: View {
             .buttonStyle(.text)
 
             Text("·")
-                .foregroundStyle(AppColors.textTertiary)
+                .foregroundStyle(AppColor.textTertiary)
 
             Button("Privacy") {
                 // TODO: Open privacy policy

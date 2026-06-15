@@ -16,7 +16,7 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             // Background
-            AppColors.backgroundPrimary
+            AppColor.backgroundPrimary
                 .ignoresSafeArea()
 
             ScrollView {
@@ -61,7 +61,7 @@ struct SignInView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(AppColors.primarySunset)
+                        .foregroundStyle(AppColor.primarySunset)
                 }
             }
         }
@@ -85,11 +85,11 @@ struct SignInView: View {
             Text("Welcome Back")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundStyle(AppColors.textPrimary)
+                .foregroundStyle(AppColor.textPrimary)
 
             Text("Sign in to continue caring for your pets")
                 .font(.body)
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
         }
     }
 
@@ -109,16 +109,16 @@ struct SignInView: View {
     private var divider: some View {
         HStack {
             Rectangle()
-                .fill(AppColors.textTertiary.opacity(0.3))
+                .fill(AppColor.textTertiary.opacity(0.3))
                 .frame(height: 1)
 
             Text("or")
                 .font(.caption)
-                .foregroundStyle(AppColors.textTertiary)
+                .foregroundStyle(AppColor.textTertiary)
                 .padding(.horizontal, 16)
 
             Rectangle()
-                .fill(AppColors.textTertiary.opacity(0.3))
+                .fill(AppColor.textTertiary.opacity(0.3))
                 .frame(height: 1)
         }
     }
@@ -131,7 +131,7 @@ struct SignInView: View {
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
                 .autocapitalization(.none)
-                .tint(AppColors.primarySunset)
+                .tint(AppColor.primarySunset)
 
             // Password
             HStack {
@@ -144,13 +144,13 @@ struct SignInView: View {
                 }
                 .textFieldStyle(.roundedBorder)
                 .textContentType(.password)
-                .tint(AppColors.primarySunset)
+                .tint(AppColor.primarySunset)
 
                 Button {
                     viewModel.showPassword.toggle()
                 } label: {
                     Image(systemName: viewModel.showPassword ? "eye.slash" : "eye")
-                        .foregroundStyle(AppColors.textTertiary)
+                        .foregroundStyle(AppColor.textTertiary)
                 }
             }
         }
@@ -179,13 +179,13 @@ struct SignInView: View {
     private var signUpLink: some View {
         HStack(spacing: 4) {
             Text("Don't have an account?")
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
 
             Button("Sign Up") {
                 showSignUp = true
             }
             .fontWeight(.semibold)
-            .foregroundStyle(AppColors.primarySunset)
+            .foregroundStyle(AppColor.primarySunset)
         }
         .font(.subheadline)
         .frame(maxWidth: .infinity)

@@ -1,5 +1,5 @@
 //
-//  AppColors.swift
+//  AppColor.swift
 //  PawConnect
 //
 //  Created by Kyle Baker on 1/11/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum AppColors {
+enum AppColor {
     // MARK: - Primary (for glass tinting)
     static let primarySunset = Color(hex: "#EA580C")
     static let primaryTerracotta = Color(hex: "#DC2626")

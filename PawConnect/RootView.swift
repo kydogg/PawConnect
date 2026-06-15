@@ -43,16 +43,16 @@ struct RootView: View {
 
     private func placeholderView(title: String, message: String) -> some View {
         ZStack {
-            AppColors.backgroundPrimary
+            AppColor.backgroundPrimary
                 .ignoresSafeArea()
             VStack(spacing: 16) {
                 Text(title)
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundStyle(AppColors.textPrimary)
+                    .foregroundStyle(AppColor.textPrimary)
                 Text(message)
                     .font(.body)
-                    .foregroundStyle(AppColors.textSecondary)
+                    .foregroundStyle(AppColor.textSecondary)
             }
         }
     }
