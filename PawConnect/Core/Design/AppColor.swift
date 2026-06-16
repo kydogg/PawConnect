@@ -33,11 +33,6 @@ enum AppColor {
     // MARK: - Border / divider
     static let border = Color("Border", bundle: .main)
 
-    // MARK: - Neutrals (warm ramp — see colors_and_type.css)
-    static let neutral100 = Color("Neutral100", bundle: .main)
-    static let neutral150 = Color("Neutral150", bundle: .main)
-    static let neutral900 = Color("Neutral900", bundle: .main)
-
     // MARK: - Semantic (constant across modes)
     static let success = secondarySage
     static let warning = secondaryAmber
