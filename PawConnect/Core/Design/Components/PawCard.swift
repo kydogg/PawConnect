@@ -14,8 +14,8 @@ struct PawCard<Content: View>: View {
         content()
             .padding()
             .background(AppColor.backgroundElevated)
-            .clipShape(RoundedRectangle(cornerRadius: Constants.UI.cornerRadius))
-            .shadow(color: .black.opacity(0.08), radius: 8, y: 2)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
+            .cardShadow()
     }
 }
 
