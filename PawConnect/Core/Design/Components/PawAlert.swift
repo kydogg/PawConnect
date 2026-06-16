@@ -11,15 +11,13 @@ import SwiftUI
 /// Use for inline success/warning/error/info feedback (not system alerts).
 struct PawAlert: View {
     enum Style {
-        case success, warning, error, info
+        case success, warning, error
 
         var tint: Color {
             switch self {
             case .success: AppColor.success
             case .warning: AppColor.warning
             case .error: AppColor.error
-            // The design system has no dedicated info token; use the brand accent.
-            case .info: AppColor.primarySunset
             }
         }
 
@@ -28,7 +26,6 @@ struct PawAlert: View {
             case .success: "checkmark.circle.fill"
             case .warning: "exclamationmark.circle.fill"
             case .error: "exclamationmark.triangle.fill"
-            case .info: "info.circle.fill"
             }
         }
     }
@@ -83,7 +80,6 @@ struct PawAlert: View {
         PawAlert(style: .success, title: "Booking confirmed", message: "Your sitter has accepted the request.")
         PawAlert(style: .warning, title: "Heads up", message: "This sitter responds slowly.")
         PawAlert(style: .error, title: "Couldn't sign in", message: "Check your email and password.", onDismiss: {})
-        PawAlert(style: .info, title: "New feature", message: "Live Activities are now available.")
     }
     .padding()
     .background(AppColor.backgroundPrimary)

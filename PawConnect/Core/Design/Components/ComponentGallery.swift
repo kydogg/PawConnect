@@ -79,7 +79,6 @@ struct ComponentGallery: View {
                 PawAlert(style: .success, title: "Success", message: "Booking confirmed.")
                 PawAlert(style: .warning, title: "Warning", message: "Slow to respond.")
                 PawAlert(style: .error, title: "Error", message: "Something went wrong.", onDismiss: {})
-                PawAlert(style: .info, title: "Info", message: "A new feature is available.")
             }
         }
     }
