@@ -73,7 +73,7 @@ This sets up the Midjourney-to-Xcode workflow. Reference: `PawConnect-Unified-As
   6. Set "Render As" to Template for icons, Original for illustrations
 - [ ] Create `AssetImage.swift` enum (skeleton — fill in as assets land):
   - [ ] File path: `PawConnect/Core/Utilities/AssetImage.swift`
-  - [ ] Empty case stubs for all 38 assets, organized by category
+  - [ ] Empty case stubs for all 37 catalog assets (36 imagesets + AppIcon), organized by category
   - [ ] Reference: full enum in `PawConnect-Unified-Asset-Library.md` § "SwiftUI Asset Enum"
 
 ### Asset Batch 1: Brand Foundation (blocks Phase 1)
