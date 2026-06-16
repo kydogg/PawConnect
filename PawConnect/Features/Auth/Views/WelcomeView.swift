@@ -33,7 +33,7 @@ struct WelcomeView: View {
 
                     // Action Buttons (lower third)
                     actionButtons
-                        .padding(.horizontal, Constants.UI.standardPadding)
+                        .padding(.horizontal, AppSpacing.md)
                         .padding(.bottom, 16)
 
                     // Footer
@@ -101,7 +101,7 @@ struct WelcomeView: View {
                         .foregroundStyle(AppColor.textTertiary)
                 }
             }
-            .padding(.horizontal, Constants.UI.standardPadding)
+            .padding(.horizontal, AppSpacing.md)
     }
 
     private var actionButtons: some View {

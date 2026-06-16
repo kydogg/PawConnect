@@ -26,11 +26,4 @@ enum Constants {
         static let maxBioLength = 500
         static let maxPetNameLength = 50
     }
-
-    // MARK: - UI
-    enum UI {
-        static let cornerRadius: CGFloat = 12
-        static let standardPadding: CGFloat = 16
-        static let smallPadding: CGFloat = 8
-    }
 }

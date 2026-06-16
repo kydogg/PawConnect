@@ -45,7 +45,7 @@ struct SignInView: View {
 
                     Spacer(minLength: 32)
                 }
-                .padding(.horizontal, Constants.UI.standardPadding)
+                .padding(.horizontal, AppSpacing.md)
             }
 
             // Loading Overlay
@@ -103,7 +103,7 @@ struct SignInView: View {
         }
         .signInWithAppleButtonStyle(.black)
         .frame(height: 56)
-        .clipShape(RoundedRectangle(cornerRadius: Constants.UI.cornerRadius))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 
     private var divider: some View {

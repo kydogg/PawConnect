@@ -29,7 +29,7 @@ struct PrimaryButtonStyle: ButtonStyle {
         .frame(maxWidth: .infinity)
         .frame(height: 56)
         .background(
-            RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
+            RoundedRectangle(cornerRadius: AppRadius.md)
                 .fill(isEnabled ? AppColor.primarySunset : AppColor.primarySunset.opacity(0.6))
         )
         .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
@@ -48,7 +48,7 @@ struct SecondaryButtonStyle: ButtonStyle {
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .background(
-                RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
+                RoundedRectangle(cornerRadius: AppRadius.md)
                     .stroke(AppColor.primarySunset, lineWidth: 1.5)
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
