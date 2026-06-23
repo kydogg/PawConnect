@@ -199,7 +199,7 @@ Spec: SRCH-01 to SRCH-03. 3 screens.
 
 **Asset Prerequisites — generate before frontend work:**
 - [ ] Batch 3 — Empty States: `EmptyNoSitters` (light + dark) for SRCH-02
-- [ ] Batch 5 — Service Icons: `ServiceWalking`, `ServiceSitting`, `ServiceBoarding`, `ServiceDropIn`, `ServiceDaycare` (Template render mode — no dark variants needed)
+- Service icons: SF Symbols via `ServiceIcon` / `Image(service:)` — no generation, import, or `AssetImage` entry needed.
 - [ ] Batch 6 — Trust Badges: `BadgeVerified`, `RatingStars`, `BadgeBackgroundCheck`
 - [ ] Batch 8 — Location: `PricePin`, `ServiceRadius` for SRCH-03 map view
 - [ ] Run scaling script, import to Xcode, update `AssetImage.swift`
