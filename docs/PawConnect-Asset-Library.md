@@ -46,7 +46,7 @@ For each asset class, the cheapest path to a good result. Default to the fastest
 | **Hero illustrations** (Welcome, EmptyNoPets, EmptyNoSitters) | **Midjourney** | Warm, character-driven illustration with subtle texture. SVG can't easily replicate that warmth. |
 | **App Icon master** | **Midjourney**, finish in Figma/Sketch | iOS HIG strict; Midjourney gets you 80%, finish manually |
 | **Logo lockup** | **Midjourney** master, then **Claude SVG** for clean wordmark version | Icon is illustration; wordmark benefits from clean vector edges |
-| **Service icons** (Walking, Sitting, Boarding, Drop-in, Daycare) | **Claude SVG** ⭐ | Geometric, single-color, template-rendered. Faster, more consistent, infinitely re-tintable. |
+| **Service icons** (Walking, Sitting, Boarding, Drop-in, Daycare) | **SF Symbols** ⭐ | System-tinted, Dynamic Type- and dark-mode-aware. Custom art adds no value; ship via `ServiceIcon` / `Image(service:)`. |
 | **Status/feedback icons** (Success, Error, Warning) | **SF Symbols** ⭐ | Already system-tinted and dark-aware. Custom art adds zero value. |
 | **Live Activity icons** (Medication, Feeding, Walk, Bathroom, Play) | **SF Symbols** ⭐ | Lock Screen rendering optimized; auto-adapts to wallpaper. Custom art is risky. |
 | **Trust badges** (Verified, Background Check) | **SF Symbols** ⭐ or **Claude SVG** | `checkmark.seal.fill` is iconic and instantly recognizable. Custom art only if branding demands. |
@@ -58,7 +58,7 @@ For each asset class, the cheapest path to a good result. Default to the fastest
 
 ⭐ = Recommendation likely shifts you away from a pure-Midjourney default.
 
-**Net effect**: Of 37 assets, ~12 should be Claude SVG, ~10 should be SF Symbols, and only ~12-15 truly need Midjourney. Midjourney generation budget shrinks by ~60% versus a "generate everything" approach.
+**Net effect**: Of 37 catalogued assets, only ~32 require generation — service icons now ship as SF Symbols. Roughly ~7 Claude SVG, ~15 SF Symbols, and ~12-15 Midjourney. Midjourney generation budget shrinks by ~60% versus a "generate everything" approach.
 
 ---
 
@@ -466,137 +466,23 @@ Soft illustration of a magnifying glass with sparkles, sunset orange (#EA580C) a
 
 These icons appear in AUTH-11 (Sitter Services selection), AUTH-13 (Rates), SRCH-01 (Service Type radio), SRCH-02 (Results), and PROF-02 (Sitter Profile Services section).
 
-**Recommended path: Claude SVG ⭐**. These are geometric, single-color, template-rendered icons. Generate as SVG via Claude — they re-tint via SwiftUI's `.renderingMode(.template)` and adapt automatically to light/dark mode. Midjourney prompts are kept below as a fallback.
+**Approach: SF Symbols ⭐ — nothing to generate.** Service icons ship as system SF Symbols, rendered through `ServiceIcon` (`PawConnect/Core/Design/ServiceIcon.swift`) and the `Image(service:)` initializer. They are automatically tinted, Dynamic Type-aware, and dark-mode-aware — no custom art, no asset-catalog imagesets, no `AssetImage` cases, and no dark variants.
 
-### ASSET-030: Dog Walking Service Icon
-
-| Field | Value |
-|-------|-------|
-| **Asset ID** | ASSET-030 |
-| **Filename** | `ServiceWalking@3x.png` (raster) or `ServiceWalking.svg` (preferred) |
-| **Folder Path** | `Assets/Services/` |
-| **Render As** | Template |
-| **Dimensions** | 96x96px @3x (32x32pt — matches AUTH-11 row icon spec). SVG `viewBox=0 0 32 32`. |
-| **Used In** | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
-| **Xcode Asset Catalog** | `Resources/Assets.xcassets/Services/ServiceWalking.imageset/` |
-| **Dark Mode Variant** | No — template rendering adapts automatically |
-| **SF Symbol Alternative** | `figure.walk` (acceptable fallback) |
-
-**Claude SVG Prompt (preferred)**:
-```
-Generate an SVG icon for "Dog Walking". viewBox 0 0 32 32. Single color using currentColor. Stroke width 2, round line caps and joins. Geometric, friendly. Show: a leash arcing from upper-left down to a dog silhouette in lower-right, simple shape, suggesting motion. No background. Render-mode: template. Output: just the <svg> element.
+Usage:
+```swift
+Image(service: .walking)
+    .foregroundStyle(AppColor.primarySunset)
 ```
 
-**Midjourney Prompt (fallback)**:
-```
-Simple icon of person walking a happy dog, sunset orange (#EA580C) silhouette style, clean modern lines, friendly energetic pose, minimalist design suitable for 32pt service card icon, high contrast, vector style --ar 1:1 --style raw --v 6
-```
+| Asset ID | Service | `ServiceIcon` case | SF Symbol | Used In |
+|----------|---------|--------------------|-----------|---------|
+| ASSET-030 | Dog Walking | `.walking` | `figure.walk.motion` | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
+| ASSET-031 | Drop-in Visit | `.dropIn` | `door.left.hand.open` | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
+| ASSET-032 | House Sitting | `.sitting` | `house.and.flag.fill` | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
+| ASSET-033 | Boarding | `.boarding` | `house.lodge.fill` | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
+| ASSET-034 | Doggy Daycare | `.daycare` | `tennisball.fill` | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
 
-**Notes**: AUTH-11 spec lists emoji "walking person" + service name in 32pt icons. These custom icons replace emojis for a more polished look. Export as template image for tint color flexibility.
-
----
-
-### ASSET-031: Drop-in Visit Service Icon
-
-| Field | Value |
-|-------|-------|
-| **Asset ID** | ASSET-031 |
-| **Filename** | `ServiceDropIn.svg` (preferred) or `ServiceDropIn@3x.png` |
-| **Folder Path** | `Assets/Services/` |
-| **Render As** | Template |
-| **Dimensions** | 96x96px @3x (32x32pt). SVG `viewBox=0 0 32 32`. |
-| **Used In** | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
-| **Xcode Asset Catalog** | `Resources/Assets.xcassets/Services/ServiceDropIn.imageset/` |
-| **Dark Mode Variant** | No — template rendering |
-| **SF Symbol Alternative** | `hand.wave.fill` (acceptable fallback) |
-
-**Claude SVG Prompt (preferred)**:
-```
-Generate an SVG icon for "Drop-in Visit". viewBox 0 0 32 32. Single color using currentColor. Stroke width 2, round line caps. Show: a doorway shape with a small paw print centered inside the threshold. Suggests "quick visit". No background. Render-mode: template. Output: just the <svg> element.
-```
-
-**Midjourney Prompt (fallback)**:
-```
-Door with friendly wave gesture and paw print, bright amber (#F59E0B) and sunset orange (#EA580C) tones, modern minimalist style, quick visit concept, approachable design, high contrast, vector style, suitable for small icon --ar 1:1 --style raw --v 6
-```
-
----
-
-### ASSET-032: House Sitting Service Icon
-
-| Field | Value |
-|-------|-------|
-| **Asset ID** | ASSET-032 |
-| **Filename** | `ServiceSitting.svg` (preferred) or `ServiceSitting@3x.png` |
-| **Folder Path** | `Assets/Services/` |
-| **Render As** | Template |
-| **Dimensions** | 96x96px @3x (32x32pt). SVG `viewBox=0 0 32 32`. |
-| **Used In** | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
-| **Xcode Asset Catalog** | `Resources/Assets.xcassets/Services/ServiceSitting.imageset/` |
-| **Dark Mode Variant** | No — template rendering |
-| **SF Symbol Alternative** | `moon.stars.fill` (acceptable fallback) |
-
-**Claude SVG Prompt (preferred)**:
-```
-Generate an SVG icon for "House Sitting". viewBox 0 0 32 32. Single color using currentColor. Stroke width 2. Show: a house silhouette with a pet head visible in the window. Crescent moon in upper corner suggests overnight care. No background. Render-mode: template. Output: just the <svg> element.
-```
-
-**Midjourney Prompt (fallback)**:
-```
-Cozy house icon with pet silhouette in window, warm terracotta (#DC2626) and peach (#FB923C) tones, modern friendly style, nighttime moon element, secure and comforting feeling, simple clean design, high contrast, vector style --ar 1:1 --style raw --v 6
-```
-
----
-
-### ASSET-033: Boarding Service Icon
-
-| Field | Value |
-|-------|-------|
-| **Asset ID** | ASSET-033 |
-| **Filename** | `ServiceBoarding.svg` (preferred) or `ServiceBoarding@3x.png` |
-| **Folder Path** | `Assets/Services/` |
-| **Render As** | Template |
-| **Dimensions** | 96x96px @3x (32x32pt). SVG `viewBox=0 0 32 32`. |
-| **Used In** | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
-| **Xcode Asset Catalog** | `Resources/Assets.xcassets/Services/ServiceBoarding.imageset/` |
-| **Dark Mode Variant** | No — template rendering |
-| **SF Symbol Alternative** | `house.fill` (acceptable fallback) |
-
-**Claude SVG Prompt (preferred)**:
-```
-Generate an SVG icon for "Pet Boarding". viewBox 0 0 32 32. Single color using currentColor. Stroke width 2. Show: a cozy house with a pet bed silhouette inside, paw print on roof. Suggests overnight stay at sitter's home. No background. Render-mode: template. Output: just the <svg> element.
-```
-
-**Midjourney Prompt (fallback)**:
-```
-Welcoming home with paw print and pet bed, warm sunset orange (#EA580C) and clay neutrals (#FAE5D3), modern flat illustration, cozy overnight care theme, friendly approachable style, high contrast, vector style, suitable for small icon --ar 1:1 --style raw --v 6
-```
-
----
-
-### ASSET-034: Doggy Daycare Service Icon
-
-| Field | Value |
-|-------|-------|
-| **Asset ID** | ASSET-034 |
-| **Filename** | `ServiceDaycare.svg` (preferred) or `ServiceDaycare@3x.png` |
-| **Folder Path** | `Assets/Services/` |
-| **Render As** | Template |
-| **Dimensions** | 96x96px @3x (32x32pt). SVG `viewBox=0 0 32 32`. |
-| **Used In** | AUTH-11, AUTH-13, SRCH-01, SRCH-02, PROF-02 |
-| **Xcode Asset Catalog** | `Resources/Assets.xcassets/Services/ServiceDaycare.imageset/` |
-| **Dark Mode Variant** | No — template rendering |
-| **SF Symbol Alternative** | `sun.max.fill` (acceptable fallback) |
-
-**Claude SVG Prompt (preferred)**:
-```
-Generate an SVG icon for "Doggy Daycare". viewBox 0 0 32 32. Single color using currentColor. Stroke width 2. Show: a sun with rays in the upper area and a playful dog silhouette below. Energetic, daytime feel. No background. Render-mode: template. Output: just the <svg> element.
-```
-
-**Midjourney Prompt (fallback)**:
-```
-Playful dog in daylight with sun, vibrant amber (#F59E0B) and peachy tones (#FB923C), energetic friendly style, daytime care theme, modern flat design, high contrast, vector style, suitable for small icon --ar 1:1 --style raw --v 6
-```
+**Notes**: Replaces the earlier custom Claude-SVG approach. To restyle a service icon, change its symbol in `ServiceIcon.systemName` — no regeneration or re-import needed.
 
 ---
 
@@ -1197,10 +1083,10 @@ Apply the Tool Selection matrix first — many "Batch" entries below should be S
 
 | Metric | Value |
 |--------|-------|
-| **Total Assets Cataloged** | 37 |
+| **Total Assets Requiring Generation** | 32 (37 catalogued − 5 service icons now SF Symbols) |
 | **Recommended Path: Midjourney** | ~12 assets |
-| **Recommended Path: Claude SVG** | ~12 assets |
-| **Recommended Path: SF Symbols (permanent)** | ~10 assets |
+| **Recommended Path: Claude SVG** | ~7 assets |
+| **Recommended Path: SF Symbols (permanent)** | ~15 assets |
 | **Recommended Path: Code animation** | 1 (Confetti) |
 | **Mixed / either tool** | ~2 assets |
 | **Batch 1 (Sprint 1 Blockers)** | 8 assets |
