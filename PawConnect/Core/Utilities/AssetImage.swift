@@ -37,13 +37,6 @@ enum AssetImage: String, CaseIterable {
     case emptyNoReviews = "EmptyNoReviews"              // ASSET-024
     case emptyNoRecommendations = "EmptyNoRecommendations" // ASSET-025
 
-    // MARK: - Service Icons
-    case serviceWalking = "ServiceWalking"              // ASSET-030
-    case serviceDropIn = "ServiceDropIn"                // ASSET-031
-    case serviceSitting = "ServiceSitting"              // ASSET-032
-    case serviceBoarding = "ServiceBoarding"            // ASSET-033
-    case serviceDaycare = "ServiceDaycare"              // ASSET-034
-
     // MARK: - Status & Feedback
     case feedbackSuccess = "FeedbackSuccess"            // ASSET-040
     case feedbackError = "FeedbackError"                // ASSET-041
