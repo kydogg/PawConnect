@@ -49,12 +49,8 @@ enum AssetImage: String, CaseIterable {
     // MARK: - Status
     case mailIcon = "MailIcon"                          // ASSET-044
 
-    // MARK: - Live Activity Icons
-    case activityMedication = "ActivityMedication"      // ASSET-050
-    case activityFeeding = "ActivityFeeding"            // ASSET-051
-    case activityWalk = "ActivityWalk"                  // ASSET-052
-    case activityBathroom = "ActivityBathroom"          // ASSET-053
-    case activityPlay = "ActivityPlay"                  // ASSET-054
+    // Live Activity icons (ASSET-050–054) ship as SF Symbols via
+    // CareActivityIcon / Image(activity:) — no catalog assets.
 
     // MARK: - Profile Placeholders
     case dogAvatar = "DogAvatar"                        // ASSET-060
