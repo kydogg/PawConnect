@@ -20,6 +20,9 @@ struct AssetGallery: View {
         .confetti,
         .successCheckmark,
         .mailIcon,
+        .emptyNoMessages,
+        .emptyNoReviews,
+        .emptyNoRecommendations,
     ]
 
     var body: some View {
