@@ -58,7 +58,7 @@ For each asset class, the cheapest path to a good result. Default to the fastest
 
 ⭐ = Recommendation likely shifts you away from a pure-Midjourney default.
 
-**Net effect**: Of 37 catalogued assets, only ~32 require generation — service icons now ship as SF Symbols. Roughly ~7 Claude SVG, ~15 SF Symbols, and ~12-15 Midjourney. Midjourney generation budget shrinks by ~60% versus a "generate everything" approach.
+**Net effect**: Of 37 catalogued assets, only ~27 require generation — service icons and Live Activity icons now ship as SF Symbols. Roughly ~7 Claude SVG, ~20 SF Symbols, and ~12 Midjourney. Midjourney generation budget shrinks by ~60% versus a "generate everything" approach.
 
 ---
 
@@ -1083,10 +1083,10 @@ Apply the Tool Selection matrix first — many "Batch" entries below should be S
 
 | Metric | Value |
 |--------|-------|
-| **Total Assets Requiring Generation** | 32 (37 catalogued − 5 service icons now SF Symbols) |
+| **Total Assets Requiring Generation** | 27 (37 catalogued − 5 service icons − 5 Live Activity icons now SF Symbols) |
 | **Recommended Path: Midjourney** | ~12 assets |
 | **Recommended Path: Claude SVG** | ~7 assets |
-| **Recommended Path: SF Symbols (permanent)** | ~15 assets |
+| **Recommended Path: SF Symbols (permanent)** | ~20 assets |
 | **Recommended Path: Code animation** | 1 (Confetti) |
 | **Mixed / either tool** | ~2 assets |
 | **Batch 1 (Sprint 1 Blockers)** | 8 assets |
