@@ -20,37 +20,37 @@ struct SignInView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: AppSpacing.lg) {
-                    // Header
+                // Per-section gaps follow PRODUCT_SPEC § AUTH-03.
+                VStack(alignment: .leading, spacing: 0) {
                     header
+                        .padding(.top, AppSpacing.xl)
+
+                    appleSignInSection
+                        .padding(.top, AppSpacing.xl)
+
+                    PawAuthDivider()
+                        .padding(.top, AppSpacing.lg)
+
+                    emailForm
+                        .padding(.top, AppSpacing.lg)
+
+                    forgotPasswordLink
                         .padding(.top, AppSpacing.sm)
 
-                    // Apple Sign In
-                    appleSignInSection
-
-                    // Divider
-                    divider
-
-                    // Email Form
-                    emailForm
-
-                    // Forgot Password
-                    forgotPasswordLink
-
-                    // Submit Button
                     submitButton
+                        .padding(.top, AppSpacing.xl)
 
-                    // Sign Up Link
                     signUpLink
+                        .padding(.top, AppSpacing.xl)
 
-                    Spacer(minLength: 32)
+                    Spacer(minLength: AppSpacing.xl)
                 }
                 .padding(.horizontal, AppSpacing.md)
             }
 
             // Loading Overlay
             if viewModel.isLoading {
-                loadingOverlay
+                PawLoadingOverlay(message: "Signing in...")
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -103,23 +103,6 @@ struct SignInView: View {
         .signInWithAppleButtonStyle(.black)
         .frame(height: 56)
         .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
-    }
-
-    private var divider: some View {
-        HStack {
-            Rectangle()
-                .fill(AppColor.border)
-                .frame(height: 1)
-
-            Text("or")
-                .font(.caption)
-                .foregroundStyle(AppColor.textTertiary)
-                .padding(.horizontal, AppSpacing.md)
-
-            Rectangle()
-                .fill(AppColor.border)
-                .frame(height: 1)
-        }
     }
 
     private var emailForm: some View {
@@ -180,24 +163,6 @@ struct SignInView: View {
         .frame(maxWidth: .infinity)
     }
 
-    private var loadingOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-
-            VStack(spacing: AppSpacing.md) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(1.2)
-
-                Text("Signing in...")
-                    .font(.bodyRegular)
-                    .foregroundStyle(.white)
-            }
-            .padding(AppSpacing.xl)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: AppRadius.lg))
-        }
-    }
 }
 
 #Preview {
