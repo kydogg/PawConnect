@@ -8,20 +8,25 @@
 import SwiftUI
 
 struct PawTextField: View {
-    let label: String
+    var label: String?
     @Binding var text: String
     var placeholder: String = ""
     var error: String?
     var isSecure: Bool = false
+    /// When set together with `isSecure`, shows an eye toggle on the right
+    /// side of the field that reveals the secure text.
+    var isRevealed: Binding<Bool>?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(label)
-                .font(.subheadline)
-                .foregroundStyle(AppColor.textSecondary)
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
+            if let label {
+                Text(label)
+                    .font(.bodySmall.weight(.medium))
+                    .foregroundStyle(AppColor.textSecondary)
+            }
 
             Group {
-                if isSecure {
+                if isSecure && !(isRevealed?.wrappedValue ?? false) {
                     SecureField(placeholder, text: $text)
                 } else {
                     TextField(placeholder, text: $text)
@@ -29,6 +34,17 @@ struct PawTextField: View {
             }
             .textFieldStyle(.roundedBorder)
             .tint(AppColor.primarySunset)
+            .overlay(alignment: .trailing) {
+                if isSecure, let isRevealed {
+                    Button {
+                        isRevealed.wrappedValue.toggle()
+                    } label: {
+                        Image(systemName: isRevealed.wrappedValue ? "eye.slash" : "eye")
+                            .foregroundStyle(AppColor.textTertiary)
+                            .padding(.trailing, AppSpacing.sm)
+                    }
+                }
+            }
 
             if let error {
                 Text(error)
@@ -40,7 +56,7 @@ struct PawTextField: View {
 }
 
 #Preview {
-    VStack(spacing: 20) {
+    VStack(spacing: AppSpacing.lg) {
         PawTextField(
             label: "Email",
             text: .constant(""),
@@ -51,7 +67,15 @@ struct PawTextField: View {
             label: "Password",
             text: .constant(""),
             placeholder: "Enter your password",
-            isSecure: true
+            isSecure: true,
+            isRevealed: .constant(false)
+        )
+
+        PawTextField(
+            text: .constant(""),
+            placeholder: "No label (sign-in style)",
+            isSecure: true,
+            isRevealed: .constant(true)
         )
 
         PawTextField(
