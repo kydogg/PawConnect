@@ -72,7 +72,7 @@ struct WelcomeView: View {
             .frame(height: 200)
             .overlay {
                 VStack(spacing: AppSpacing.sm) {
-                    Image(systemName: "person.and.dog")
+                    Image(systemName: "dog.fill")
                         .font(.system(size: 60))
                         .foregroundStyle(AppColor.primarySunset.opacity(0.5))
                     Text("Your pets deserve the best care")
