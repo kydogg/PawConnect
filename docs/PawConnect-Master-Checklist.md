@@ -121,19 +121,16 @@ Spec: AUTH-01 through AUTH-14. 14 screens, 13 backend endpoints.
 
 **Asset Prerequisites:** Batches 1 + 2 (done in Phase 0). Verify in `AssetImage.swift` before starting screens.
 
-### Backend (Supabase Auth + Functions)
+### Backend (Supabase Auth, direct SDK + RLS — see `docs/adr/0001`)
+
+No Edge Functions in this phase: the app calls Supabase Auth/Postgres/Storage directly via supabase-swift, guarded by Row Level Security. Edge Functions are reserved for server-authoritative flows in later phases (booking state machine, Live Activity pushes).
+
 - [ ] Configure Supabase Auth providers: email, Apple
 - [ ] Set up Apple Sign In service ID + return URLs in Apple Developer
-- [ ] Edge Function: `signUpWithEmail` (validates, creates user record)
-- [ ] Edge Function: `signUpWithApple` (handles identity token verification)
-- [ ] Edge Function: `signIn` (returns user + role + onboarding status)
-- [ ] Edge Function: `requestPasswordReset` (sends email via Supabase)
-- [ ] Edge Function: `users:updateRole`
-- [ ] Edge Function: `users:updateLocation` (with geocoding helper)
-- [ ] Edge Function: `users:completeOnboarding`
-- [ ] Edge Function: `pets:create`, `pets:updateCareDetails`
-- [ ] Edge Function: `sitters:updateServiceArea`, `:updateServices`, `:updateAvailability`, `:updateRates`, `:updateProfile`
-- [ ] Edge Function: `storage:uploadImage` (signed URL generator)
+- [ ] Migration: Postgres trigger creates `users` row on auth signup
+- [ ] Migration: RLS policies for `users` and `pets` (row-owner read/write; deny cross-user access)
+- [ ] Storage bucket policies for profile + pet photo uploads
+- [ ] Auth flows (sign up, sign in, password reset) call the SDK directly — no server middleman
 
 ### Frontend Screens
 - [ ] AUTH-01 Welcome — static, simplest first
