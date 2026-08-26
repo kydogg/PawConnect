@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Supabase
 
 @Observable
 class SignUpViewModel {
@@ -67,19 +68,17 @@ class SignUpViewModel {
         error = nil
 
         do {
-            // TODO: Implement actual Supabase sign up
-            // try await AuthService.shared.signUp(
-            //     email: email,
-            //     password: password,
-            //     fullName: fullName
-            // )
-
-            // Simulate network delay for now
-            try await Task.sleep(for: .seconds(1.5))
-
-            // Success - navigation will be handled by auth state change
+            try await AuthManager.shared.signUp(
+                email: email,
+                password: password,
+                fullName: fullName.trimmingCharacters(in: .whitespaces)
+            )
+            // Success - navigation is driven by the auth state change
         } catch let appError as AppError {
             self.error = appError
+        } catch let authError as AuthError {
+            // Surface Supabase's message (e.g. "User already registered")
+            self.error = .auth(message: authError.localizedDescription)
         } catch {
             self.error = .network(underlying: error)
         }
