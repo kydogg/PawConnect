@@ -13,9 +13,12 @@ import Supabase
 
 enum SupabaseConfig {
     static var url: URL {
-        let raw = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String
-        guard let url = URL(string: raw ?? Constants.Supabase.url) else {
-            fatalError("Invalid SUPABASE_URL")
+        if let raw = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
+           let override = URL(string: raw), !raw.isEmpty {
+            return override
+        }
+        guard let url = URL(string: Constants.Supabase.url) else {
+            fatalError("Invalid Constants.Supabase.url")
         }
         return url
     }
