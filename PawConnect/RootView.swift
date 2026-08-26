@@ -54,6 +54,12 @@ struct RootView: View {
                 Text(message)
                     .font(.body)
                     .foregroundStyle(AppColor.textSecondary)
+
+                Button("Sign Out") {
+                    Task { try? await AuthManager.shared.signOut() }
+                }
+                .font(.body)
+                .tint(AppColor.primarySunset)
             }
         }
     }
