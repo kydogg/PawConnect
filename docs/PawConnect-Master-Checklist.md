@@ -127,8 +127,8 @@ No Edge Functions in this phase: the app calls Supabase Auth/Postgres/Storage di
 
 - [ ] Configure Supabase Auth providers: email, Apple
 - [ ] Set up Apple Sign In service ID + return URLs in Apple Developer
-- [ ] Migration: Postgres trigger creates `users` row on auth signup
-- [ ] Migration: RLS policies for `users` and `pets` (row-owner read/write; deny cross-user access)
+- [x] Migration: Postgres trigger creates `profiles` row on auth signup (shipped in 0001)
+- [x] Migration: RLS policies for `profiles` and `pets` (row-owner read/write; deny cross-user access — 0001 + 0003)
 - [ ] Storage bucket policies for profile + pet photo uploads
 - [ ] Auth flows (sign up, sign in, password reset) call the SDK directly — no server middleman
 

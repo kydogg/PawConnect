@@ -12,6 +12,10 @@ _Avoid_: customer, client, pet parent
 A user who offers pet-care services (walking, sitting, boarding, drop-ins, daycare).
 _Avoid_: provider, caregiver, walker
 
+**Profile**:
+The per-user record backing an account (role, location, onboarding state); exactly one per authenticated user, created automatically at signup. Readable only by its own user.
+_Avoid_: user record, users row, account
+
 **Role**:
 A user's marketplace identity: Owner, Sitter, or Both. Chosen once at role selection and persisted server-side; routing derives from it.
 _Avoid_: account type, user type
