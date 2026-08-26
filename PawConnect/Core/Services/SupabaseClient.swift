@@ -3,7 +3,9 @@
 //  PawConnect
 //
 //  Singleton entry point to the Supabase backend.
-//  Reads URL + anon key from Info.plist (set via Local.xcconfig — gitignored).
+//  Info.plist values (settable via a gitignored Local.xcconfig) override the
+//  defaults in Constants. The anon key is safe to ship in the client —
+//  RLS is the authorization boundary (ADR-0001).
 //
 
 import Foundation
@@ -11,19 +13,19 @@ import Supabase
 
 enum SupabaseConfig {
     static var url: URL {
-        guard let raw = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,
-              let url = URL(string: raw) else {
-            fatalError("SUPABASE_URL missing from Info.plist — set it in Local.xcconfig")
+        let raw = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String
+        guard let url = URL(string: raw ?? Constants.Supabase.url) else {
+            fatalError("Invalid SUPABASE_URL")
         }
         return url
     }
 
     static var anonKey: String {
-        guard let key = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_ANON_KEY") as? String,
-              !key.isEmpty else {
-            fatalError("SUPABASE_ANON_KEY missing from Info.plist — set it in Local.xcconfig")
+        if let key = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_ANON_KEY") as? String,
+           !key.isEmpty {
+            return key
         }
-        return key
+        return Constants.Supabase.anonKey
     }
 }
 
