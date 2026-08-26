@@ -15,7 +15,7 @@ EMAIL_B="pawconnect.probe.b.${TS}@gmail.com"
 PASS="Probe-pass-1234"
 FAIL=0
 
-jqget() { python3 -c "import sys,json; d=json.load(sys.stdin); print(d$1)" 2>/dev/null; }
+json_get() { python3 -c "import sys,json; d=json.load(sys.stdin); print(d$1)" 2>/dev/null; }
 check() { # check <description> <ok:0|1>
   if [ "$2" -eq 0 ]; then echo "  ✓ $1"; else echo "  ✗ $1"; FAIL=1; fi
 }
@@ -23,8 +23,8 @@ check() { # check <description> <ok:0|1>
 echo "=== 1. Sign up user A ($EMAIL_A) — expect immediate session ==="
 RESP_A=$(curl -s -X POST "$URL/auth/v1/signup" -H "apikey: $ANON" -H "Content-Type: application/json" \
   -d "{\"email\":\"$EMAIL_A\",\"password\":\"$PASS\",\"data\":{\"full_name\":\"Probe A\"}}")
-TOKEN_A=$(echo "$RESP_A" | jqget "['access_token']")
-UID_A=$(echo "$RESP_A" | jqget "['user']['id']")
+TOKEN_A=$(echo "$RESP_A" | json_get "['access_token']")
+UID_A=$(echo "$RESP_A" | json_get "['user']['id']")
 check "signup returns a session (email confirmation off)" "$([ -n "$TOKEN_A" ] && echo 0 || echo 1)"
 [ -z "$TOKEN_A" ] && { echo "  response: $RESP_A"; echo "Aborting — later probes need a session."; exit 1; }
 
@@ -42,8 +42,8 @@ check "error_code is invalid_credentials" "$(echo "$ERR" | grep -q invalid_crede
 echo "=== 4. Sign up user B ($EMAIL_B) ==="
 RESP_B=$(curl -s -X POST "$URL/auth/v1/signup" -H "apikey: $ANON" -H "Content-Type: application/json" \
   -d "{\"email\":\"$EMAIL_B\",\"password\":\"$PASS\",\"data\":{\"full_name\":\"Probe B\"}}")
-TOKEN_B=$(echo "$RESP_B" | jqget "['access_token']")
-UID_B=$(echo "$RESP_B" | jqget "['user']['id']")
+TOKEN_B=$(echo "$RESP_B" | json_get "['access_token']")
+UID_B=$(echo "$RESP_B" | json_get "['user']['id']")
 check "second account created with session" "$([ -n "$TOKEN_B" ] && echo 0 || echo 1)"
 
 echo "=== 5. RLS: B reads A's profile — expect [] (migration 0003) ==="
