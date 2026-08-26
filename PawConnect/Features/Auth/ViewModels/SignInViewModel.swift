@@ -49,8 +49,17 @@ class SignInViewModel {
             // Success - navigation is driven by the auth state change
         } catch let appError as AppError {
             self.error = appError
-        } catch is AuthError {
-            self.error = .auth(message: "Invalid email or password")
+        } catch let authError as AuthError {
+            switch authError.errorCode {
+            case .invalidCredentials:
+                self.error = .auth(message: "Invalid email or password. Please try again.")
+                email = ""
+                password = ""
+            case .overRequestRateLimit:
+                self.error = .auth(message: "Too many attempts. Please try again later.")
+            default:
+                self.error = .auth(message: authError.localizedDescription)
+            }
         } catch {
             self.error = .network(underlying: error)
         }

@@ -69,7 +69,7 @@ class SignUpViewModel {
 
         do {
             try await AuthManager.shared.signUp(
-                email: email,
+                email: email.trimmingCharacters(in: .whitespaces),
                 password: password,
                 fullName: fullName.trimmingCharacters(in: .whitespaces)
             )
@@ -77,8 +77,16 @@ class SignUpViewModel {
         } catch let appError as AppError {
             self.error = appError
         } catch let authError as AuthError {
-            // Surface Supabase's message (e.g. "User already registered")
-            self.error = .auth(message: authError.localizedDescription)
+            switch authError.errorCode {
+            case .userAlreadyExists, .emailExists:
+                self.error = .auth(message: "An account with this email already exists")
+            case .weakPassword:
+                self.error = .auth(message: "Password does not meet requirements")
+            case .overRequestRateLimit:
+                self.error = .auth(message: "Too many attempts. Please try again later.")
+            default:
+                self.error = .auth(message: authError.localizedDescription)
+            }
         } catch {
             self.error = .network(underlying: error)
         }
