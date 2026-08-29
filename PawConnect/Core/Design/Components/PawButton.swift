@@ -29,8 +29,8 @@ struct PrimaryButtonStyle: ButtonStyle {
         .frame(maxWidth: .infinity)
         .frame(height: 56)
         .background(
-            RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
-                .fill(isEnabled ? AppColors.primarySunset : AppColors.primarySunset.opacity(0.6))
+            RoundedRectangle(cornerRadius: AppRadius.md)
+                .fill(isEnabled ? AppColor.primarySunset : AppColor.primarySunset.opacity(0.6))
         )
         .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
         .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
@@ -44,12 +44,12 @@ struct SecondaryButtonStyle: ButtonStyle {
         configuration.label
             .font(.body)
             .fontWeight(.medium)
-            .foregroundStyle(AppColors.primarySunset)
+            .foregroundStyle(AppColor.primarySunset)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .background(
-                RoundedRectangle(cornerRadius: Constants.UI.cornerRadius)
-                    .stroke(AppColors.primarySunset, lineWidth: 1.5)
+                RoundedRectangle(cornerRadius: AppRadius.md)
+                    .stroke(AppColor.primarySunset, lineWidth: 1.5)
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
             .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
@@ -63,7 +63,7 @@ struct TextButtonStyle: ButtonStyle {
         configuration.label
             .font(.subheadline)
             .fontWeight(.medium)
-            .foregroundStyle(configuration.isPressed ? AppColors.primaryTerracotta : AppColors.primarySunset)
+            .foregroundStyle(configuration.isPressed ? AppColor.primaryTerracotta : AppColor.primarySunset)
     }
 }
 

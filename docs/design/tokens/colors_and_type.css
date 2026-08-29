@@ -1,0 +1,189 @@
+/* ============================================================
+   PawConnect Design System — Colors & Type
+   Canonical source: PRODUCT_SPEC.md § Design System Reference,
+   AppColors.swift (runtime), brand-design.html (visual reference).
+   Warm, neighborhood-scale, premium. Warmth over efficiency.
+   ============================================================ */
+
+:root {
+  /* ---- Primary (brand) ---- */
+  --sunset:      #EA580C;  /* primary buttons, links, active states */
+  --terracotta:  #DC2626;  /* pressed states, destructive */
+
+  /* ---- Secondary ---- */
+  --sage:        #059669;  /* success, trust, checkmarks, "available" */
+  --amber:       #F59E0B;  /* warnings, star ratings */
+  --peach:       #FB923C;  /* secondary highlights, soft accents */
+
+  /* ---- Accent (sparingly) ---- */
+  --coral:       #FF6B6B;
+  --honey:       #FBB040;
+  --mint:        #10B981;
+
+  /* ---- Warm neutral ramp (named after the brand kit) ---- */
+  --neutral-50:  #FFFBF5;  /* Cream   */
+  --neutral-100: #FEF3E2;  /* Ivory   */
+  --neutral-200: #FAE5D3;  /* Sand    — borders, dividers */
+  --neutral-300: #F0D5C1;  /* Beige   */
+  --neutral-400: #D4A574;  /* Tan     */
+  --neutral-500: #B08968;  /* Clay    — tertiary text */
+  --neutral-600: #8B6F47;  /* Umber   */
+  --neutral-700: #5D4E37;  /* Coffee  — secondary text */
+  --neutral-800: #3E342A;  /* Espresso*/
+  --neutral-900: #1F1B17;  /* Charcoal— primary text */
+
+  /* ---- Surfaces ---- */
+  --bg-primary:   #FFFBF5;  /* screen background (cream) */
+  --bg-elevated:  #FFFFFF;  /* cards, sheets, modals */
+
+  /* ---- Text ---- */
+  --text-primary:   #1F1B17;  /* headlines, primary content */
+  --text-secondary: #5D4E37;  /* body, descriptions */
+  --text-tertiary:  #B08968;  /* placeholders, disabled, metadata */
+  --text-on-color:  #FFFFFF;
+
+  /* ---- Lines ---- */
+  --border: #FAE5D3;          /* input borders, hairline dividers */
+
+  /* ---- Semantic ---- */
+  --success: #059669;
+  --warning: #F59E0B;
+  --error:   #DC2626;
+  --info:    #0891B2;
+
+  /* ---- Spacing (8pt grid) ---- */
+  --space-xxs: 2px;
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  32px;
+  --space-xxl: 48px;
+  --space-xxxl:64px;
+
+  /* ---- Corner radius ---- */
+  --radius-sm:   8px;     /* inputs, small buttons */
+  --radius-md:   12px;    /* cards, primary buttons */
+  --radius-lg:   16px;    /* bottom sheets, large cards */
+  --radius-xl:   24px;    /* hero illustration container */
+  --radius-full: 9999px;  /* avatars, pills */
+
+  /* ---- Elevation (warm, low, soft) ---- */
+  --shadow-card:  0 2px 8px rgba(31, 27, 23, 0.08);
+  --shadow-float: 0 4px 16px rgba(31, 27, 23, 0.12);
+  --shadow-modal: 0 8px 24px rgba(31, 27, 23, 0.16);
+  --shadow-glow:  0 4px 12px rgba(234, 88, 12, 0.30); /* sunset press/hover glow */
+
+  /* ---- Glass surfaces (tab bar, nav pills) ---- */
+  --glass-bg:     rgba(255, 251, 245, 0.82);
+  --glass-border: rgba(31, 27, 23, 0.06);
+
+  /* ============================================================
+     TYPOGRAPHY
+     Typeface = Apple system (SF Pro). On Apple devices the native
+     stack resolves to real SF Pro Display/Text. Elsewhere it
+     falls back to the platform UI font. No webfont files needed.
+     ============================================================ */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+               "SF Pro Text", "Segoe UI", system-ui, Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo,
+               Consolas, monospace;
+
+  /* ---- Type tokens (design intent sizes in pt → px) ---- */
+  /* displayLarge — hero headlines, welcome screens */
+  --display-size: 34px;  --display-line: 41px;  --display-weight: 700;  --display-track: -0.5px;
+  /* headingH1 — screen titles */
+  --h1-size: 24px;       --h1-line: 30px;       --h1-weight: 700;       --h1-track: -0.2px;
+  /* headingH2 — section headers */
+  --h2-size: 20px;       --h2-line: 26px;       --h2-weight: 600;       --h2-track: 0;
+  /* headingH3 — card titles, emphasized */
+  --h3-size: 17px;       --h3-line: 22px;       --h3-weight: 600;       --h3-track: 0;
+  /* bodyLarge — primary body */
+  --body-lg-size: 17px;  --body-lg-line: 24px;  --body-lg-weight: 400;
+  /* bodyRegular — secondary body */
+  --body-size: 15px;     --body-line: 21px;     --body-weight: 400;
+  /* bodySmall — captions, metadata */
+  --body-sm-size: 13px;  --body-sm-line: 18px;  --body-sm-weight: 400;
+  /* caption — timestamps, fine print */
+  --caption-size: 12px;  --caption-line: 16px;  --caption-weight: 400; --caption-track: 0.1px;
+  /* button labels */
+  --btn-lg-size: 17px;   --btn-lg-weight: 600;
+  --btn-sm-size: 15px;   --btn-sm-weight: 500;
+}
+
+/* ============================================================
+   DARK MODE — warm charcoals. Per the Asset Library + design
+   review: BACKGROUNDS, TEXT, NEUTRALS and BORDERS invert; the
+   warm brand/accent/semantic hues stay CONSTANT across modes
+   (sunset stays #EA580C, sage #059669, etc.) so the palette
+   reads identically light and dark.
+   Apply via [data-theme="dark"] on a container or <html>.
+   ============================================================ */
+[data-theme="dark"] {
+  /* brand + semantic accents intentionally unchanged (constant) */
+
+  --neutral-50:  #1A1613;
+  --neutral-100: #27221D;
+  --neutral-200: #3E342A;
+  --neutral-300: #5D4E37;
+  --neutral-400: #8B6F47;
+  --neutral-500: #B08968;
+  --neutral-600: #D4A574;
+  --neutral-700: #F0D5C1;
+  --neutral-800: #FAE5D3;
+  --neutral-900: #FFFBF5;
+
+  --bg-primary:   #1A1613;  /* charcoal */
+  --bg-elevated:  #27221D;  /* espresso */
+  --text-primary:   #FFFBF5;
+  --text-secondary: #F0D5C1;
+  --text-tertiary:  #B08968;
+  --border: #3E342A;
+
+  --glass-bg:     rgba(39, 34, 29, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --shadow-card:  0 2px 8px rgba(0, 0, 0, 0.30);
+  --shadow-float: 0 4px 16px rgba(0, 0, 0, 0.40);
+  --shadow-modal: 0 8px 24px rgba(0, 0, 0, 0.50);
+}
+
+/* ============================================================
+   SEMANTIC TYPE CLASSES — apply directly to elements.
+   ============================================================ */
+.pc-display {
+  font: var(--display-weight) var(--display-size)/var(--display-line) var(--font-sans);
+  letter-spacing: var(--display-track); color: var(--text-primary);
+}
+.pc-h1 {
+  font: var(--h1-weight) var(--h1-size)/var(--h1-line) var(--font-sans);
+  letter-spacing: var(--h1-track); color: var(--text-primary);
+}
+.pc-h2 {
+  font: var(--h2-weight) var(--h2-size)/var(--h2-line) var(--font-sans);
+  color: var(--text-primary);
+}
+.pc-h3 {
+  font: var(--h3-weight) var(--h3-size)/var(--h3-line) var(--font-sans);
+  color: var(--text-primary);
+}
+.pc-body-lg {
+  font: var(--body-lg-weight) var(--body-lg-size)/var(--body-lg-line) var(--font-sans);
+  color: var(--text-secondary);
+}
+.pc-body {
+  font: var(--body-weight) var(--body-size)/var(--body-line) var(--font-sans);
+  color: var(--text-secondary);
+}
+.pc-body-sm {
+  font: var(--body-sm-weight) var(--body-sm-size)/var(--body-sm-line) var(--font-sans);
+  color: var(--text-secondary);
+}
+.pc-caption {
+  font: var(--caption-weight) var(--caption-size)/var(--caption-line) var(--font-sans);
+  letter-spacing: var(--caption-track); color: var(--text-tertiary);
+}
+.pc-btn-label {
+  font: var(--btn-lg-weight) var(--btn-lg-size) var(--font-sans);
+}

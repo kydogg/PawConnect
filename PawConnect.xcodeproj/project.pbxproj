@@ -6,14 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		840ED2912F16EDC400D585C2 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 840ED2902F16EDC400D585C2 /* Supabase */; };
+		848A2C172F1500000099CD7F /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 848A2C162F1500000099CD7F /* Supabase */; };
+		849130E02FA3123B0001E77F /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 849130DF2FA3123B0001E77F /* SwiftFormat */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		848A2C102F1500000099CD7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 848A2B5C2F143EA40099CD7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 848A2B632F143EA40099CD7F;
+			remoteInfo = PawConnect;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		848A2B642F143EA40099CD7F /* PawConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		848A2C0A2F1500000099CD7F /* PawConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		848A2B662F143EA40099CD7F /* PawConnect */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PawConnect;
+			sourceTree = "<group>";
+		};
+		848A2C0B2F1500000099CD7F /* PawConnectTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PawConnectTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +45,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840ED2912F16EDC400D585C2 /* Supabase in Frameworks */,
+				849130E02FA3123B0001E77F /* SwiftFormat in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		848A2C0D2F1500000099CD7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848A2C172F1500000099CD7F /* Supabase in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				848A2B662F143EA40099CD7F /* PawConnect */,
+				848A2C0B2F1500000099CD7F /* PawConnectTests */,
 				848A2B652F143EA40099CD7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				848A2B642F143EA40099CD7F /* PawConnect.app */,
+				848A2C0A2F1500000099CD7F /* PawConnectTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,10 +99,35 @@
 			);
 			name = PawConnect;
 			packageProductDependencies = (
+				840ED2902F16EDC400D585C2 /* Supabase */,
+				849130DF2FA3123B0001E77F /* SwiftFormat */,
 			);
 			productName = PawConnect;
 			productReference = 848A2B642F143EA40099CD7F /* PawConnect.app */;
 			productType = "com.apple.product-type.application";
+		};
+		848A2C152F1500000099CD7F /* PawConnectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 848A2C142F1500000099CD7F /* Build configuration list for PBXNativeTarget "PawConnectTests" */;
+			buildPhases = (
+				848A2C0C2F1500000099CD7F /* Sources */,
+				848A2C0D2F1500000099CD7F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				848A2C112F1500000099CD7F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				848A2C0B2F1500000099CD7F /* PawConnectTests */,
+			);
+			name = PawConnectTests;
+			packageProductDependencies = (
+				848A2C162F1500000099CD7F /* Supabase */,
+			);
+			productName = PawConnectTests;
+			productReference = 848A2C0A2F1500000099CD7F /* PawConnectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +142,10 @@
 					848A2B632F143EA40099CD7F = {
 						CreatedOnToolsVersion = 26.0;
 					};
+					848A2C152F1500000099CD7F = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = 848A2B632F143EA40099CD7F;
+					};
 				};
 			};
 			buildConfigurationList = 848A2B5F2F143EA40099CD7F /* Build configuration list for PBXProject "PawConnect" */;
@@ -96,6 +159,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				840ED27E2F16EDC400D585C2 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				849130DD2FA3121C0001E77F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 848A2B652F143EA40099CD7F /* Products */;
@@ -103,6 +168,7 @@
 			projectRoot = "";
 			targets = (
 				848A2B632F143EA40099CD7F /* PawConnect */,
+				848A2C152F1500000099CD7F /* PawConnectTests */,
 			);
 		};
 /* End PBXProject section */
@@ -125,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		848A2C0C2F1500000099CD7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		848A2C112F1500000099CD7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 848A2B632F143EA40099CD7F /* PawConnect */;
+			targetProxy = 848A2C102F1500000099CD7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		848A2B6D2F143EA50099CD7F /* Debug */ = {
@@ -313,6 +394,46 @@
 			};
 			name = Release;
 		};
+		848A2C122F1500000099CD7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WLYH225PWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DaedalusDigital.PawConnectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PawConnect.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PawConnect";
+			};
+			name = Debug;
+		};
+		848A2C132F1500000099CD7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = WLYH225PWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DaedalusDigital.PawConnectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PawConnect.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PawConnect";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -334,6 +455,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		848A2C142F1500000099CD7F /* Build configuration list for PBXNativeTarget "PawConnectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				848A2C122F1500000099CD7F /* Debug */,
+				848A2C132F1500000099CD7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -345,7 +475,41 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		849130DD2FA3121C0001E77F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.63.2;
+			};
+		};
+		849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.61.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		840ED2902F16EDC400D585C2 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 840ED27E2F16EDC400D585C2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		848A2C162F1500000099CD7F /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 840ED27E2F16EDC400D585C2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		849130DF2FA3123B0001E77F /* SwiftFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */;
+			productName = SwiftFormat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 848A2B5C2F143EA40099CD7F /* Project object */;
 }

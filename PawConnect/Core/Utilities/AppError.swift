@@ -11,6 +11,7 @@ enum AppError: LocalizedError {
     case network(underlying: Error)
     case auth(message: String)
     case validation(field: String, message: String)
+    case server(message: String)
     case notFound
     case unknown
 
@@ -21,6 +22,8 @@ enum AppError: LocalizedError {
         case .auth(let message):
             return message
         case .validation(_, let message):
+            return message
+        case .server(let message):
             return message
         case .notFound:
             return "Not found."

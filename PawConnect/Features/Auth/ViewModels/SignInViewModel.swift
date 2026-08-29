@@ -6,9 +6,16 @@
 //
 
 import Foundation
+import Supabase
 
 @Observable
 class SignInViewModel {
+    @ObservationIgnored private let auth: any AuthProviding
+
+    init(auth: any AuthProviding = AuthManager.shared) {
+        self.auth = auth
+    }
+
     // MARK: - Form State
     var email = ""
     var password = ""
@@ -41,20 +48,18 @@ class SignInViewModel {
         error = nil
 
         do {
-            // TODO: Implement actual Supabase sign in
-            // try await AuthService.shared.signIn(
-            //     email: email,
-            //     password: password
-            // )
-
-            // Simulate network delay for now
-            try await Task.sleep(for: .seconds(1.5))
-
-            // Success - navigation will be handled by auth state change
-        } catch let appError as AppError {
-            self.error = appError
+            try await auth.signIn(
+                email: email.trimmingCharacters(in: .whitespaces),
+                password: password
+            )
+            // Success - navigation is driven by the auth state change
         } catch {
-            self.error = .auth(message: "Invalid email or password")
+            self.error = AuthErrorMapping.appError(from: error, flow: .signIn)
+            // Spec: invalid credentials clears both fields for re-entry.
+            if let authError = error as? AuthError, authError.errorCode == .invalidCredentials {
+                email = ""
+                password = ""
+            }
         }
 
         isLoading = false

@@ -3,9 +3,14 @@
 *.swp
 *~
 
+# Obsidian (docs vault metadata)
+.obsidian/
+
 # Environment / Secrets
 .env
 .env.*
+Local.xcconfig
+Secrets.xcconfig
 
 # Xcode
 #

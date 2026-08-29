@@ -1,7 +1,7 @@
 # PawConnect AI Development Guide
 
 > **AI Assistant**: This is your ONLY instruction file. Read this completely before any task.
-> Also reference `PRODUCT_SPEC.md` for detailed screen specifications and `DATABASE_SCHEMA.sql` for data structure.
+> Also reference `PRODUCT_SPEC.md` for detailed screen specifications and the SQL migrations in `supabase/migrations/` (`0001_initial_schema.sql`, `0002_storage_buckets.sql`) for data structure.
 
 ---
 
@@ -713,29 +713,36 @@ TabView(selection: $selectedTab) {
 
 ## Design System
 
+> **Token source of truth:** `PRODUCT_SPEC.md` § Design System Reference is the canonical definition of every color, type, spacing, radius, and shadow token (including light **and** dark values). The values shown here must match that table. If they ever diverge, PRODUCT_SPEC wins — update it there, then sync `AppColors.swift`.
+
 ### Colors (AppColors.swift)
+
+**Dark mode is required.** The flat `Color(hex:)` constants below only encode the *light* value, which cannot adapt to dark mode. Implement each color as an **asset-catalog Color Set** (with Any/Dark appearances from the PRODUCT_SPEC table) and reference it by name — e.g. `static let primarySunset = Color("PrimarySunset", bundle: .main)`. Keep `Color(hex:)` only for one-off, mode-independent values. Note: brand, accent, and semantic hues stay **constant** across light and dark modes (e.g. `#EA580C` in both) — only background, surface, and text tokens have distinct dark values. The snippet below documents the light-mode hex values for reference; it is not the final implementation.
 
 ```swift
 import SwiftUI
 
 enum AppColors {
     // Primary - for glass tinting
-    static let primarySunset = Color(hex: "#EA580C")
-    static let primaryTerracotta = Color(hex: "#DC2626")
+    static let primarySunset = Color(hex: "#EA580C")        // constant across modes
+    static let primaryTerracotta = Color(hex: "#DC2626")    // constant across modes
     
     // Secondary
-    static let secondarySage = Color(hex: "#059669")
-    static let secondaryAmber = Color(hex: "#F59E0B")
-    static let secondaryPeach = Color(hex: "#FB923C")
+    static let secondarySage = Color(hex: "#059669")        // constant across modes
+    static let secondaryAmber = Color(hex: "#F59E0B")       // constant across modes
+    static let secondaryPeach = Color(hex: "#FB923C")       // constant across modes
     
     // Backgrounds (non-glass content)
-    static let backgroundPrimary = Color(hex: "#FFFBF5")
-    static let backgroundElevated = Color.white
+    static let backgroundPrimary = Color(hex: "#FFFBF5")    // dark: #1A1613
+    static let backgroundElevated = Color(hex: "#FFFFFF")   // dark: #27221D
     
     // Text
-    static let textPrimary = Color(hex: "#1F1B17")
-    static let textSecondary = Color(hex: "#5D4E37")
-    static let textTertiary = Color(hex: "#B08968")
+    static let textPrimary = Color(hex: "#1F1B17")          // dark: #FFFBF5
+    static let textSecondary = Color(hex: "#5D4E37")        // dark: #F0D5C1
+    static let textTertiary = Color(hex: "#B08968")         // dark: #B08968 (unchanged)
+    
+    // Border / divider
+    static let border = Color(hex: "#FAE5D3")               // dark: #3E342A
     
     // Semantic
     static let success = secondarySage
@@ -799,24 +806,31 @@ struct PawCard<Content: View>: View {
 }
 ```
 
-**PawTextField** - Styled input:
+**PawTextField** - Styled input. `label` is optional (AUTH-03's sign-in
+fields are placeholder-only per PRODUCT_SPEC), and secure fields get a
+built-in reveal toggle when an `isRevealed` binding is passed:
 
 ```swift
 struct PawTextField: View {
-    let label: String
+    var label: String?
     @Binding var text: String
     var placeholder: String = ""
     var error: String?
     var isSecure: Bool = false
-    
+    /// When set together with `isSecure`, shows an eye toggle on the right
+    /// side of the field that reveals the secure text.
+    var isRevealed: Binding<Bool>?
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(label)
-                .font(.subheadline)
-                .foregroundStyle(AppColors.textSecondary)
-            
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
+            if let label {
+                Text(label)
+                    .font(.bodySmall.weight(.medium))
+                    .foregroundStyle(AppColors.textSecondary)
+            }
+
             Group {
-                if isSecure {
+                if isSecure && !(isRevealed?.wrappedValue ?? false) {
                     SecureField(placeholder, text: $text)
                 } else {
                     TextField(placeholder, text: $text)
@@ -824,7 +838,18 @@ struct PawTextField: View {
             }
             .textFieldStyle(.roundedBorder)
             .tint(AppColors.primarySunset)
-            
+            .overlay(alignment: .trailing) {
+                if isSecure, let isRevealed {
+                    Button {
+                        isRevealed.wrappedValue.toggle()
+                    } label: {
+                        Image(systemName: isRevealed.wrappedValue ? "eye.slash" : "eye")
+                            .foregroundStyle(AppColors.textTertiary)
+                            .padding(.trailing, AppSpacing.sm)
+                    }
+                }
+            }
+
             if let error {
                 Text(error)
                     .font(.caption)
@@ -1013,6 +1038,9 @@ func submitForm() async
 ```bash
 # Build for simulator
 xcodebuild -scheme PawConnect -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
+
+# Run unit tests (PawConnectTests target, shared PawConnect scheme)
+xcodebuild test -project PawConnect.xcodeproj -scheme PawConnect -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
 
 # Clean build folder
 xcodebuild clean -scheme PawConnect

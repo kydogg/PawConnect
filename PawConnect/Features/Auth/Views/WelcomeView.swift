@@ -15,7 +15,7 @@ struct WelcomeView: View {
         NavigationStack {
             ZStack {
                 // Background
-                AppColors.backgroundPrimary
+                AppColor.backgroundPrimary
                     .ignoresSafeArea()
 
                 VStack(spacing: 0) {
@@ -23,22 +23,22 @@ struct WelcomeView: View {
 
                     // Logo Section (upper third)
                     logoSection
-                        .padding(.bottom, 32)
+                        .padding(.bottom, AppSpacing.xl)
 
                     // Illustration Area (middle third)
                     illustrationArea
-                        .padding(.bottom, 48)
+                        .padding(.bottom, AppSpacing.xxl)
 
                     Spacer()
 
                     // Action Buttons (lower third)
                     actionButtons
-                        .padding(.horizontal, Constants.UI.standardPadding)
-                        .padding(.bottom, 16)
+                        .padding(.horizontal, AppSpacing.lg)
+                        .padding(.bottom, AppSpacing.md)
 
                     // Footer
                     footer
-                        .padding(.bottom, 32)
+                        .padding(.bottom, AppSpacing.xl)
                 }
             }
             .navigationDestination(isPresented: $showSignUp) {
@@ -53,38 +53,17 @@ struct WelcomeView: View {
     // MARK: - Subviews
 
     private var logoSection: some View {
-        VStack(spacing: 8) {
-            // Logo Icon
-            RoundedRectangle(cornerRadius: 12)
-                .fill(AppColors.primarySunset)
-                .frame(width: 48, height: 48)
-                .overlay {
-                    Image(systemName: "pawprint.fill")
-                        .font(.system(size: 24, weight: .semibold))
-                        .foregroundStyle(.white)
-                }
-
-            // App Name
-            Text("PawConnect")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .foregroundStyle(AppColors.textPrimary)
-
-            // Tagline
-            Text("Peace of mind, one paw at a time")
-                .font(.body)
-                .foregroundStyle(AppColors.textSecondary)
-        }
+        PawLogo(size: .medium, showAppName: true, showTagline: true)
     }
 
     private var illustrationArea: some View {
         // Gradient placeholder for illustration
-        RoundedRectangle(cornerRadius: 24)
+        RoundedRectangle(cornerRadius: AppRadius.lg)
             .fill(
                 LinearGradient(
                     colors: [
-                        AppColors.primarySunset.opacity(0.1),
-                        AppColors.secondaryPeach.opacity(0.1)
+                        AppColor.primarySunset.opacity(0.1),
+                        AppColor.secondaryPeach.opacity(0.1)
                     ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
@@ -92,20 +71,20 @@ struct WelcomeView: View {
             )
             .frame(height: 200)
             .overlay {
-                VStack(spacing: 12) {
-                    Image(systemName: "person.and.dog")
+                VStack(spacing: AppSpacing.sm) {
+                    Image(systemName: "dog.fill")
                         .font(.system(size: 60))
-                        .foregroundStyle(AppColors.primarySunset.opacity(0.5))
+                        .foregroundStyle(AppColor.primarySunset.opacity(0.5))
                     Text("Your pets deserve the best care")
-                        .font(.subheadline)
-                        .foregroundStyle(AppColors.textTertiary)
+                        .font(.bodyRegular)
+                        .foregroundStyle(AppColor.textTertiary)
                 }
             }
-            .padding(.horizontal, Constants.UI.standardPadding)
+            .padding(.horizontal, AppSpacing.md)
     }
 
     private var actionButtons: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: AppSpacing.md) {
             // Primary CTA
             Button("Get Started") {
                 showSignUp = true
@@ -121,14 +100,14 @@ struct WelcomeView: View {
     }
 
     private var footer: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: AppSpacing.xs) {
             Button("Terms") {
                 // TODO: Open terms
             }
             .buttonStyle(.text)
 
             Text("·")
-                .foregroundStyle(AppColors.textTertiary)
+                .foregroundStyle(AppColor.textTertiary)
 
             Button("Privacy") {
                 // TODO: Open privacy policy
