@@ -56,7 +56,8 @@ final class AuthManager {
         try await SupabaseClient.shared.client.auth.signOut()
     }
 
-    private func apply(session: Session?) {
+    /// Internal (not private) so session-gating behavior is unit-testable.
+    func apply(session: Session?) {
         // emitLocalSessionAsInitialSession delivers the stored session even
         // when expired; stay signed out until autoRefreshToken emits a valid one.
         if let session, !session.isExpired {

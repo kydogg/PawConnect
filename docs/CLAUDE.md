@@ -1039,6 +1039,9 @@ func submitForm() async
 # Build for simulator
 xcodebuild -scheme PawConnect -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
 
+# Run unit tests (PawConnectTests target, shared PawConnect scheme)
+xcodebuild test -project PawConnect.xcodeproj -scheme PawConnect -destination 'platform=iOS Simulator,name=iPhone 16 Pro'
+
 # Clean build folder
 xcodebuild clean -scheme PawConnect
 ```

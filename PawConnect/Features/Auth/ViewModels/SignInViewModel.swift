@@ -10,6 +10,12 @@ import Supabase
 
 @Observable
 class SignInViewModel {
+    @ObservationIgnored private let auth: any AuthProviding
+
+    init(auth: any AuthProviding = AuthManager.shared) {
+        self.auth = auth
+    }
+
     // MARK: - Form State
     var email = ""
     var password = ""
@@ -42,26 +48,18 @@ class SignInViewModel {
         error = nil
 
         do {
-            try await AuthManager.shared.signIn(
+            try await auth.signIn(
                 email: email.trimmingCharacters(in: .whitespaces),
                 password: password
             )
             // Success - navigation is driven by the auth state change
-        } catch let appError as AppError {
-            self.error = appError
-        } catch let authError as AuthError {
-            switch authError.errorCode {
-            case .invalidCredentials:
-                self.error = .auth(message: "Invalid email or password. Please try again.")
+        } catch {
+            self.error = AuthErrorMapping.appError(from: error, flow: .signIn)
+            // Spec: invalid credentials clears both fields for re-entry.
+            if let authError = error as? AuthError, authError.errorCode == .invalidCredentials {
                 email = ""
                 password = ""
-            case .overRequestRateLimit:
-                self.error = .auth(message: "Too many attempts. Please try again later.")
-            default:
-                self.error = .auth(message: authError.localizedDescription)
             }
-        } catch {
-            self.error = .network(underlying: error)
         }
 
         isLoading = false
