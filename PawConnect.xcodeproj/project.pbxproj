@@ -12,6 +12,16 @@
 		849130E02FA3123B0001E77F /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 849130DF2FA3123B0001E77F /* SwiftFormat */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		848A2C102F1500000099CD7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 848A2B5C2F143EA40099CD7F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 848A2B632F143EA40099CD7F;
+			remoteInfo = PawConnect;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		848A2B642F143EA40099CD7F /* PawConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		848A2C0A2F1500000099CD7F /* PawConnectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PawConnectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,24 +131,6 @@
 		};
 /* End PBXNativeTarget section */
 
-/* Begin PBXContainerItemProxy section */
-		848A2C102F1500000099CD7F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 848A2B5C2F143EA40099CD7F /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 848A2B632F143EA40099CD7F;
-			remoteInfo = PawConnect;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXTargetDependency section */
-		848A2C112F1500000099CD7F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 848A2B632F143EA40099CD7F /* PawConnect */;
-			targetProxy = 848A2C102F1500000099CD7F /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXProject section */
 		848A2B5C2F143EA40099CD7F /* Project object */ = {
 			isa = PBXProject;
@@ -207,6 +199,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		848A2C112F1500000099CD7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 848A2B632F143EA40099CD7F /* PawConnect */;
+			targetProxy = 848A2C102F1500000099CD7F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		848A2B6D2F143EA50099CD7F /* Debug */ = {
@@ -394,7 +394,7 @@
 			};
 			name = Release;
 		};
-	848A2C122F1500000099CD7F /* Debug */ = {
+		848A2C122F1500000099CD7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
