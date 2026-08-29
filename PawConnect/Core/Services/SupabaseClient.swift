@@ -40,7 +40,13 @@ final class SupabaseClient {
     private init() {
         client = Supabase.SupabaseClient(
             supabaseURL: SupabaseConfig.url,
-            supabaseKey: SupabaseConfig.anonKey
+            supabaseKey: SupabaseConfig.anonKey,
+            options: SupabaseClientOptions(
+                // Opt in to the post-2.x initial-session behavior: the stored
+                // session is emitted immediately even if expired, so consumers
+                // must check Session.isExpired (see AuthManager.apply).
+                auth: .init(emitLocalSessionAsInitialSession: true)
+            )
         )
     }
 }

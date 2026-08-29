@@ -57,7 +57,9 @@ final class AuthManager {
     }
 
     private func apply(session: Session?) {
-        if let session {
+        // emitLocalSessionAsInitialSession delivers the stored session even
+        // when expired; stay signed out until autoRefreshToken emits a valid one.
+        if let session, !session.isExpired {
             isAuthenticated = true
             userID = session.user.id
             userEmail = session.user.email
