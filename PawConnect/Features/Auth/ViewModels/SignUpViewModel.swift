@@ -10,6 +10,12 @@ import Supabase
 
 @Observable
 class SignUpViewModel {
+    @ObservationIgnored private let auth: any AuthProviding
+
+    init(auth: any AuthProviding = AuthManager.shared) {
+        self.auth = auth
+    }
+
     // MARK: - Form State
     var fullName = ""
     var email = ""
@@ -68,27 +74,14 @@ class SignUpViewModel {
         error = nil
 
         do {
-            try await AuthManager.shared.signUp(
+            try await auth.signUp(
                 email: email.trimmingCharacters(in: .whitespaces),
                 password: password,
                 fullName: fullName.trimmingCharacters(in: .whitespaces)
             )
             // Success - navigation is driven by the auth state change
-        } catch let appError as AppError {
-            self.error = appError
-        } catch let authError as AuthError {
-            switch authError.errorCode {
-            case .userAlreadyExists, .emailExists:
-                self.error = .auth(message: "An account with this email already exists")
-            case .weakPassword:
-                self.error = .auth(message: "Password does not meet requirements")
-            case .overRequestRateLimit:
-                self.error = .auth(message: "Too many attempts. Please try again later.")
-            default:
-                self.error = .auth(message: authError.localizedDescription)
-            }
         } catch {
-            self.error = .network(underlying: error)
+            self.error = AuthErrorMapping.appError(from: error, flow: .signUp)
         }
 
         isLoading = false
