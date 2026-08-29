@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Supabase
 
 @Observable
 class SignInViewModel {
@@ -41,20 +42,26 @@ class SignInViewModel {
         error = nil
 
         do {
-            // TODO: Implement actual Supabase sign in
-            // try await AuthService.shared.signIn(
-            //     email: email,
-            //     password: password
-            // )
-
-            // Simulate network delay for now
-            try await Task.sleep(for: .seconds(1.5))
-
-            // Success - navigation will be handled by auth state change
+            try await AuthManager.shared.signIn(
+                email: email.trimmingCharacters(in: .whitespaces),
+                password: password
+            )
+            // Success - navigation is driven by the auth state change
         } catch let appError as AppError {
             self.error = appError
+        } catch let authError as AuthError {
+            switch authError.errorCode {
+            case .invalidCredentials:
+                self.error = .auth(message: "Invalid email or password. Please try again.")
+                email = ""
+                password = ""
+            case .overRequestRateLimit:
+                self.error = .auth(message: "Too many attempts. Please try again later.")
+            default:
+                self.error = .auth(message: authError.localizedDescription)
+            }
         } catch {
-            self.error = .auth(message: "Invalid email or password")
+            self.error = .network(underlying: error)
         }
 
         isLoading = false

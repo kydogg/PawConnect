@@ -9,13 +9,14 @@ import SwiftUI
 
 struct RootView: View {
     @State private var showSplash = true
-    @State private var isAuthenticated = false
-    @State private var hasCompletedOnboarding = false
+    private let auth = AuthManager.shared
+    // Real onboarding routing lands with AUTH-05 (issue #5)
+    private let hasCompletedOnboarding = false
 
     var body: some View {
         ZStack {
             // Main content
-            if !isAuthenticated {
+            if !auth.isAuthenticated {
                 WelcomeView()
             } else if !hasCompletedOnboarding {
                 // TODO: OnboardingView()
@@ -53,6 +54,12 @@ struct RootView: View {
                 Text(message)
                     .font(.body)
                     .foregroundStyle(AppColor.textSecondary)
+
+                Button("Sign Out") {
+                    Task { try? await AuthManager.shared.signOut() }
+                }
+                .font(.body)
+                .tint(AppColor.primarySunset)
             }
         }
     }
