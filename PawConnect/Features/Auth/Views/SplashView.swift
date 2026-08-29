@@ -17,20 +17,20 @@ struct SplashView: View {
     var body: some View {
         ZStack {
             // Background
-            AppColors.backgroundPrimary
+            AppColor.backgroundPrimary
                 .ignoresSafeArea()
 
             VStack(spacing: 16) {
                 // Animated Logo Icon
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(AppColors.primarySunset)
+                    .fill(AppColor.primarySunset)
                     .frame(width: 80, height: 80)
                     .overlay {
                         Image(systemName: "pawprint.fill")
                             .font(.system(size: 40, weight: .semibold))
                             .foregroundStyle(.white)
                     }
-                    .shadow(color: AppColors.primarySunset.opacity(0.3), radius: 20, y: 10)
+                    .shadow(color: AppColor.primarySunset.opacity(0.3), radius: 20, y: 10)
                     .scaleEffect(logoScale)
                     .opacity(logoOpacity)
 
@@ -39,11 +39,11 @@ struct SplashView: View {
                     Text("PawConnect")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundStyle(AppColors.textPrimary)
+                        .foregroundStyle(AppColor.textPrimary)
 
                     Text("Peace of mind, one paw at a time")
                         .font(.subheadline)
-                        .foregroundStyle(AppColors.textSecondary)
+                        .foregroundStyle(AppColor.textSecondary)
                 }
                 .opacity(textOpacity)
             }

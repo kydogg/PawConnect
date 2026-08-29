@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawConnect - Master Design Kit (Warm & Friendly)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Light Theme - Primary Colors */
+            --brand-primary-sunset: #EA580C;
+            --brand-primary-terracotta: #DC2626;
+
+            /* Light Theme - Secondary Colors */
+            --brand-secondary-peach: #FB923C;
+            --brand-secondary-amber: #F59E0B;
+            --brand-secondary-sage: #059669;
+
+            /* Light Theme - Accent Colors */
+            --brand-accent-coral: #FF6B6B;
+            --brand-accent-honey: #FBB040;
+            --brand-accent-mint: #10B981;
+
+            /* Light Theme - Neutral Palette */
+            --brand-neutral-50: #FFFBF5;
+            --brand-neutral-100: #FEF3E2;
+            --brand-neutral-200: #FAE5D3;
+            --brand-neutral-300: #F0D5C1;
+            --brand-neutral-400: #D4A574;
+            --brand-neutral-500: #B08968;
+            --brand-neutral-600: #8B6F47;
+            --brand-neutral-700: #5D4E37;
+            --brand-neutral-800: #3E342A;
+            --brand-neutral-900: #1F1B17;
+
+            /* Light Theme - Semantic Colors */
+            --brand-semantic-success: #059669;
+            --brand-semantic-warning: #F59E0B;
+            --brand-semantic-error: #DC2626;
+            --brand-semantic-info: #0891B2;
+
+            /* Spacing */
+            --spacing-xxs: 2px;
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            --spacing-xxxl: 64px;
+        }
+
+        /* Dark Theme Variables — only the neutral ramp (backgrounds, surfaces,
+           text) shifts in dark mode. Brand, accent, and semantic hues stay
+           constant across modes (sunset is #EA580C in both). */
+        [data-theme="dark"] {
+            --brand-neutral-50: #1A1613;
+            --brand-neutral-100: #27221D;
+            --brand-neutral-200: #3E342A;
+            --brand-neutral-300: #5D4E37;
+            --brand-neutral-400: #8B6F47;
+            --brand-neutral-500: #B08968;
+            --brand-neutral-600: #D4A574;
+            --brand-neutral-700: #F0D5C1;
+            --brand-neutral-800: #FAE5D3;
+            --brand-neutral-900: #FFFBF5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--brand-neutral-50);
+            color: var(--brand-neutral-800);
+            line-height: 1.5;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--brand-neutral-200);
+            padding: var(--spacing-lg) var(--spacing-xl);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        [data-theme="dark"] .header {
+            background: var(--brand-neutral-100);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--brand-primary-sunset), var(--brand-secondary-peach));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand-neutral-900);
+        }
+
+        .tagline {
+            color: var(--brand-neutral-500);
+            font-size: 14px;
+        }
+
+        .theme-toggle {
+            margin-left: auto;
+            padding: 8px 16px;
+            background: var(--brand-neutral-100);
+            border: 2px solid var(--brand-neutral-200);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--brand-neutral-700);
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--brand-neutral-200);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .nav-tab {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: transparent;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--brand-neutral-600);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-tab:hover {
+            background: var(--brand-neutral-100);
+        }
+
+        .nav-tab.active {
+            background: var(--brand-primary-sunset);
+            color: white;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-xl);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--brand-neutral-900);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-description {
+            font-size: 17px;
+            color: var(--brand-neutral-600);
+        }
+
+        .grid {
+            display: grid;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xxl);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] .card {
+            background: var(--brand-neutral-100);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--brand-neutral-400);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Color swatches */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .color-swatch {
+            text-align: center;
+        }
+
+        .color-block {
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: flex-end;
+            padding: var(--spacing-sm);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .color-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--brand-neutral-700);
+            margin-bottom: 2px;
+        }
+
+        .color-code {
+            font-size: 12px;
+            color: var(--brand-neutral-500);
+            font-family: monospace;
+        }
+
+        /* Typography samples */
+        .type-sample {
+            padding: var(--spacing-md) 0;
+            border-bottom: 1px solid var(--brand-neutral-100);
+        }
+
+        .type-sample:last-child {
+            border-bottom: none;
+        }
+
+        .type-label {
+            font-size: 11px;
+            color: var(--brand-neutral-400);
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            font-family: monospace;
+        }
+
+        .type-demo {
+            color: var(--brand-neutral-900);
+        }
+
+        .type-specs {
+            font-size: 11px;
+            color: var(--brand-neutral-500);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Component samples */
+        .component-preview {
+            padding: var(--spacing-xl);
+            background: var(--brand-neutral-50);
+            border-radius: 8px;
+            margin-top: var(--spacing-md);
+        }
+
+        [data-theme="dark"] .component-preview {
+            background: var(--brand-neutral-50);
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-block;
+            margin-right: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .btn-primary {
+            background: var(--brand-primary-sunset);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-primary-terracotta);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--brand-neutral-100);
+            color: var(--brand-primary-sunset);
+            border: 2px solid var(--brand-primary-sunset);
+        }
+
+        .btn-secondary:hover {
+            background: var(--brand-secondary-peach);
+            color: white;
+        }
+
+        .btn-tertiary {
+            background: transparent;
+            color: var(--brand-primary-sunset);
+            padding-left: 0;
+        }
+
+        .btn-tertiary:hover {
+            color: var(--brand-primary-terracotta);
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--brand-neutral-700);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid var(--brand-neutral-200);
+            border-radius: 8px;
+            background: white;
+            color: var(--brand-neutral-800);
+            transition: all 0.2s;
+        }
+
+        [data-theme="dark"] .form-input {
+            background: var(--brand-neutral-100);
+            border-color: var(--brand-neutral-300);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--brand-primary-sunset);
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+        }
+
+        /* Spacing visualization */
+        .spacing-demo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .spacing-box {
+            background: var(--brand-primary-sunset);
+            opacity: 0.2;
+            border: 2px solid var(--brand-primary-sunset);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-primary-sunset);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Icon grid */
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .icon-item {
+            text-align: center;
+            padding: var(--spacing-md);
+            background: var(--brand-neutral-50);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        [data-theme="dark"] .icon-item {
+            background: var(--brand-neutral-100);
+        }
+
+        .icon-item:hover {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] .icon-item:hover {
+            background: var(--brand-neutral-200);
+        }
+
+        .icon-sample {
+            width: 24px;
+            height: 24px;
+            margin: 0 auto var(--spacing-xs);
+            color: var(--brand-neutral-700);
+        }
+
+        .icon-label {
+            font-size: 11px;
+            color: var(--brand-neutral-500);
+        }
+
+        /* Theme comparison */
+        .theme-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+        }
+
+        .theme-example {
+            padding: var(--spacing-lg);
+            border-radius: 12px;
+        }
+
+        .theme-example.light {
+            background: #FFFBF5;
+            color: #3E342A;
+        }
+
+        .theme-example.dark {
+            background: #1A1613;
+            color: #FAE5D3;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">ðŸ¾</div>
+                <div>
+                    <div class="logo-text">PawConnect</div>
+                    <div class="tagline">Master Design Kit - Warm & Friendly</div>
+                </div>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">ðŸŒ“ Toggle Theme</button>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="showSection('overview')">Overview</button>
+                <button class="nav-tab" onclick="showSection('colors')">Colors</button>
+                <button class="nav-tab" onclick="showSection('typography')">Typography</button>
+                <button class="nav-tab" onclick="showSection('spacing')">Spacing</button>
+                <button class="nav-tab" onclick="showSection('components')">Components</button>
+                <button class="nav-tab" onclick="showSection('icons')">Icons</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="section-header">
+                <h1 class="section-title">Brand Identity</h1>
+                <p class="section-description">PawConnect creates a warm, welcoming environment where pets and their families feel at home</p>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <h3 class="card-title">Core Values</h3>
+                    <div style="display: grid; gap: 12px;">
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 40px; height: 40px; background: var(--brand-primary-sunset); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">â™¥</div>
+                            <div>
+                                <div style="font-weight: 600;">Warmth</div>
+                                <div style="font-size: 14px; color: var(--brand-neutral-500);">Every interaction feels like coming home</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 40px; height: 40px; background: var(--brand-secondary-sage); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">âœ“</div>
+                            <div>
+                                <div style="font-weight: 600;">Trust</div>
+                                <div style="font-size: 14px; color: var(--brand-neutral-500);">Built through genuine care and reliability</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <div style="width: 40px; height: 40px; background: var(--brand-secondary-amber); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white;">â˜€</div>
+                            <div>
+                                <div style="font-weight: 600;">Joy</div>
+                                <div style="font-size: 14px; color: var(--brand-neutral-500);">Celebrating the happiness pets bring</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Design Principles</h3>
+                    <ul style="list-style: none; padding: 0; line-height: 2;">
+                        <li>ðŸ§¡ Warm, earthy color palette distinct from competitors</li>
+                        <li>ðŸŒ™ Full dark mode support for evening browsing</li>
+                        <li>â™¿ Accessibility-first with WCAG AA compliance</li>
+                        <li>ðŸŽ¨ Organic shapes and friendly rounded corners</li>
+                        <li>ðŸ“± Native iOS patterns with warm personality</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h3 class="card-title">Competitive Differentiation</h3>
+                <div class="theme-comparison">
+                    <div>
+                        <h4 style="margin-bottom: 12px; color: var(--brand-primary-sunset);">PawConnect (Our Brand)</h4>
+                        <ul style="line-height: 1.8; font-size: 14px;">
+                            <li>Warm sunset and terracotta tones (#EA580C, #DC2626)</li>
+                            <li>Organic, earthy neutrals with cream undertones</li>
+                            <li>Sage green accents for trust (#059669)</li>
+                            <li>Feeling: Cozy, personal, neighborhood-friendly</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 12px; color: var(--brand-neutral-500);">Competitors</h4>
+                        <ul style="line-height: 1.8; font-size: 14px;">
+                            <li><strong>Rover:</strong> Green primary (#00BD70)</li>
+                            <li><strong>Wag:</strong> Teal/turquoise (#00D4AA)</li>
+                            <li><strong>Care.com:</strong> Purple (#662D91)</li>
+                            <li>Our warm palette stands apart from their cool tones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Colors Section -->
+        <section id="colors" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Color System</h1>
+                <p class="section-description">A warm, inviting palette that works beautifully in both light and dark modes</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Primary Colors</h3>
+                <div class="color-grid">
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #EA580C;">Primary</div>
+                        <div class="color-name">Sunset</div>
+                        <div class="color-code">#EA580C</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #DC2626;">Active</div>
+                        <div class="color-name">Terracotta</div>
+                        <div class="color-code">#DC2626</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FB923C;">Light</div>
+                        <div class="color-name">Peach</div>
+                        <div class="color-code">#FB923C</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #F59E0B;">Accent</div>
+                        <div class="color-name">Amber</div>
+                        <div class="color-code">#F59E0B</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #059669;">Trust</div>
+                        <div class="color-name">Sage</div>
+                        <div class="color-code">#059669</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Accent Colors</h3>
+                <div class="color-grid">
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FF6B6B;">Highlight</div>
+                        <div class="color-name">Coral</div>
+                        <div class="color-code">#FF6B6B</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FBB040;">Energy</div>
+                        <div class="color-name">Honey</div>
+                        <div class="color-code">#FBB040</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #10B981;">Fresh</div>
+                        <div class="color-name">Mint</div>
+                        <div class="color-code">#10B981</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Semantic Colors</h3>
+                <div class="color-grid">
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #059669;">Success</div>
+                        <div class="color-name">Success</div>
+                        <div class="color-code">#059669</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #F59E0B;">Warning</div>
+                        <div class="color-name">Warning</div>
+                        <div class="color-code">#F59E0B</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #DC2626;">Error</div>
+                        <div class="color-name">Error</div>
+                        <div class="color-code">#DC2626</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #0891B2;">Info</div>
+                        <div class="color-name">Info</div>
+                        <div class="color-code">#0891B2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Neutral Palette (Light Theme)</h3>
+                <div class="color-grid">
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FFFBF5; color: #666; border: 1px solid #E5E7EB;">50</div>
+                        <div class="color-name">Cream</div>
+                        <div class="color-code">#FFFBF5</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FEF3E2; color: #666; border: 1px solid #E5E7EB;">100</div>
+                        <div class="color-name">Ivory</div>
+                        <div class="color-code">#FEF3E2</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #FAE5D3; color: #666;">200</div>
+                        <div class="color-name">Sand</div>
+                        <div class="color-code">#FAE5D3</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #F0D5C1; color: #666;">300</div>
+                        <div class="color-name">Beige</div>
+                        <div class="color-code">#F0D5C1</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #D4A574;">400</div>
+                        <div class="color-name">Tan</div>
+                        <div class="color-code">#D4A574</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #B08968;">500</div>
+                        <div class="color-name">Clay</div>
+                        <div class="color-code">#B08968</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #8B6F47;">600</div>
+                        <div class="color-name">Umber</div>
+                        <div class="color-code">#8B6F47</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #5D4E37;">700</div>
+                        <div class="color-name">Coffee</div>
+                        <div class="color-code">#5D4E37</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #3E342A;">800</div>
+                        <div class="color-name">Espresso</div>
+                        <div class="color-code">#3E342A</div>
+                    </div>
+                    <div class="color-swatch">
+                        <div class="color-block" style="background: #1F1B17;">900</div>
+                        <div class="color-name">Charcoal</div>
+                        <div class="color-code">#1F1B17</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 24px;">
+                <h3 class="card-title">Theme Comparison</h3>
+                <div class="theme-comparison">
+                    <div class="theme-example light">
+                        <h4 style="margin-bottom: 12px;">Light Theme</h4>
+                        <div style="display: grid; gap: 8px;">
+                            <div style="padding: 8px; background: #EA580C; color: white; border-radius: 6px;">Primary: #EA580C</div>
+                            <div style="padding: 8px; background: #FFFBF5; color: #3E342A; border: 1px solid #FAE5D3; border-radius: 6px;">Background: #FFFBF5</div>
+                            <div style="padding: 8px; background: white; color: #3E342A; border: 1px solid #FAE5D3; border-radius: 6px;">Surface: White</div>
+                        </div>
+                    </div>
+                    <div class="theme-example dark">
+                        <h4 style="margin-bottom: 12px;">Dark Theme</h4>
+                        <div style="display: grid; gap: 8px;">
+                            <div style="padding: 8px; background: #EA580C; color: white; border-radius: 6px;">Primary: #EA580C</div>
+                            <div style="padding: 8px; background: #1A1613; color: #FAE5D3; border: 1px solid #3E342A; border-radius: 6px;">Background: #1A1613</div>
+                            <div style="padding: 8px; background: #27221D; color: #FAE5D3; border: 1px solid #3E342A; border-radius: 6px;">Surface: #27221D</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Typography System</h1>
+                <p class="section-description">Friendly, readable type that adapts to light and dark themes</p>
+            </div>
+
+            <div class="grid grid-2" style="margin-bottom: 24px;">
+                <div class="card">
+                    <h3 class="card-title">Primary Typeface</h3>
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="font-size: 28px; font-weight: 700; color: var(--brand-primary-sunset); margin-bottom: 8px;">SF Pro Display</h2>
+                        <p style="font-size: 14px; color: var(--brand-neutral-600); margin-bottom: 16px;">For headlines, titles, and marketing copy</p>
+                        <div style="background: var(--brand-neutral-50); padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px;">
+                            <div>font-family: -apple-system, BlinkMacSystemFont,</div>
+                            <div>'SF Pro Display', 'Segoe UI', system-ui</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; gap: 8px;">
+                        <div style="font-size: 24px; font-weight: 300;">Light (300)</div>
+                        <div style="font-size: 24px; font-weight: 400;">Regular (400)</div>
+                        <div style="font-size: 24px; font-weight: 600;">Semibold (600)</div>
+                        <div style="font-size: 24px; font-weight: 700;">Bold (700)</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Secondary Typeface</h3>
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="font-size: 28px; font-weight: 600; color: var(--brand-neutral-700); margin-bottom: 8px;">SF Pro Text</h2>
+                        <p style="font-size: 14px; color: var(--brand-neutral-600); margin-bottom: 16px;">For body text, UI elements, and smaller copy</p>
+                        <div style="background: var(--brand-neutral-50); padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px;">
+                            <div>font-family: -apple-system, BlinkMacSystemFont,</div>
+                            <div>'SF Pro Text', 'Segoe UI', system-ui</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; gap: 8px; font-size: 16px;">
+                        <div style="font-weight: 400;">Regular body text (400)</div>
+                        <div style="font-weight: 500;">Medium emphasis (500)</div>
+                        <div style="font-weight: 600;">Semibold for buttons (600)</div>
+                        <div style="font-weight: 700;">Bold for emphasis (700)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Swift UI Implementation</h3>
+                <pre style="font-size: 13px; line-height: 1.6; color: var(--brand-neutral-700); background: var(--brand-neutral-50); padding: 20px; border-radius: 8px; overflow-x: auto;">
+// MARK: - Typography Extensions
+extension Font {
+    // Headlines - SF Pro Display
+    static let appDisplayLarge = Font.system(size: 34, weight: .bold, design: .default)
+    static let appHeadingH1 = Font.system(size: 24, weight: .bold, design: .default)
+    static let appHeadingH2 = Font.system(size: 20, weight: .semibold, design: .default)
+
+    // Body Text - SF Pro Text
+    static let appBodyLarge = Font.system(size: 17, weight: .regular, design: .default)
+    static let appBodyRegular = Font.system(size: 15, weight: .regular, design: .default)
+    static let appBodySmall = Font.system(size: 13, weight: .regular, design: .default)
+
+    // UI Elements
+    static let appButtonLarge = Font.system(size: 17, weight: .semibold, design: .default)
+    static let appButtonSmall = Font.system(size: 15, weight: .medium, design: .default)
+    static let appCaption = Font.system(size: 12, weight: .regular, design: .default)
+}
+
+// Usage in SwiftUI Views
+Text("Welcome Home")
+    .font(.appDisplayLarge)
+    .foregroundColor(AppColor.Primary.sunset)</pre>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Type Scale</h3>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.display.large</div>
+                    <div class="type-demo" style="font-size: 34px; font-weight: 700; line-height: 41px;">Welcome Home</div>
+                    <div class="type-specs">34pt / Bold / 41pt line-height / -0.5 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.heading.h1</div>
+                    <div class="type-demo" style="font-size: 24px; font-weight: 700; line-height: 30px;">Your Pet's Happy Place</div>
+                    <div class="type-specs">24pt / Bold / 30pt line-height / -0.2 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.heading.h2</div>
+                    <div class="type-demo" style="font-size: 20px; font-weight: 600; line-height: 26px;">Trusted Neighborhood Care</div>
+                    <div class="type-specs">20pt / Semibold / 26pt line-height / 0 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.body.large</div>
+                    <div class="type-demo" style="font-size: 17px; font-weight: 400; line-height: 24px;">Every pet deserves care that feels like family. Our warm community of sitters creates that perfect home-away-from-home experience.</div>
+                    <div class="type-specs">17pt / Regular / 24pt line-height / 0 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.body.regular</div>
+                    <div class="type-demo" style="font-size: 15px; font-weight: 400; line-height: 21px;">Browse local pet sitters, read genuine reviews, and book with confidence knowing your furry friend is in caring hands.</div>
+                    <div class="type-specs">15pt / Regular / 21pt line-height / 0 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.caption</div>
+                    <div class="type-demo" style="font-size: 12px; font-weight: 400; line-height: 16px; color: var(--brand-neutral-500);">Last active 2 hours ago â€¢ 5 minute walk</div>
+                    <div class="type-specs">12pt / Regular / 16pt line-height / 0.1 tracking</div>
+                </div>
+
+                <div class="type-sample">
+                    <div class="type-label">typography.button.large</div>
+                    <div class="type-demo" style="font-size: 17px; font-weight: 600; line-height: 22px; color: var(--brand-primary-sunset);">Find Your Sitter</div>
+                    <div class="type-specs">17pt / Semibold / 22pt line-height / 0.2 tracking</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacing Section -->
+        <section id="spacing" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Spacing System</h1>
+                <p class="section-description">8pt grid system for consistent, harmonious layouts</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Spacing Scale</h3>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.xxs</div>
+                    <div class="spacing-box" style="width: 2px; height: 40px;">2</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.xs</div>
+                    <div class="spacing-box" style="width: 4px; height: 40px;">4</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.sm</div>
+                    <div class="spacing-box" style="width: 8px; height: 40px;">8</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.md</div>
+                    <div class="spacing-box" style="width: 16px; height: 40px;">16</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.lg</div>
+                    <div class="spacing-box" style="width: 24px; height: 40px;">24</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.xl</div>
+                    <div class="spacing-box" style="width: 32px; height: 40px;">32</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.xxl</div>
+                    <div class="spacing-box" style="width: 48px; height: 40px;">48</div>
+                </div>
+
+                <div class="spacing-demo">
+                    <div style="width: 100px; font-size: 12px; color: var(--brand-neutral-500);">spacing.xxxl</div>
+                    <div class="spacing-box" style="width: 64px; height: 40px;">64</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Components Section -->
+        <section id="components" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Component Library</h1>
+                <p class="section-description">Warm, inviting UI elements that adapt to both themes</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Buttons</h3>
+                <div class="component-preview">
+                    <button class="btn btn-primary">Book a Sitter</button>
+                    <button class="btn btn-secondary">Browse Services</button>
+                    <button class="btn btn-tertiary">View Details â†’</button>
+                </div>
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--brand-neutral-100);">
+                    <code style="font-size: 12px; color: var(--brand-neutral-600);">button.primary | button.secondary | button.tertiary</code>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Form Elements</h3>
+                <div class="component-preview">
+                    <div class="form-group">
+                        <label class="form-label">Pet's Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your pet's name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Special Instructions</label>
+                        <textarea class="form-input" rows="3" placeholder="Any special care instructions..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="checkbox" style="width: 20px; height: 20px;">
+                            <span style="font-size: 15px;">Send me care updates</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 24px;">
+                <h3 class="card-title">Cards & Containers</h3>
+                <div class="component-preview">
+                    <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="width: 60px; height: 60px; background: var(--brand-neutral-100); border-radius: 50%;"></div>
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; margin-bottom: 4px;">Sarah Martinez</div>
+                                <div style="font-size: 14px; color: var(--brand-neutral-500);">5.0 â˜… â€¢ Dog specialist â€¢ 0.5 miles</div>
+                            </div>
+                            <div style="color: var(--brand-primary-sunset); font-weight: 600;">$35/day</div>
+                        </div>
+                    </div>
+                    <code style="font-size: 12px; color: var(--brand-neutral-600);">container.card | 12px radius | Warm shadows</code>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Feedback Components</h3>
+                <div class="component-preview">
+                    <div style="background: var(--brand-semantic-success); color: white; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <span>âœ“</span>
+                        <span>Booking confirmed! Sarah will see Buddy tomorrow.</span>
+                    </div>
+                    <div style="background: var(--brand-semantic-warning); color: white; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <span>â°</span>
+                        <span>Don't forget: Drop-off is at 8:00 AM</span>
+                    </div>
+                    <div style="background: var(--brand-semantic-error); color: white; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <span>!</span>
+                        <span>Please update your pet's vaccination records</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Icons Section -->
+        <section id="icons" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Iconography</h1>
+                <p class="section-description">Friendly, rounded icons that feel warm and approachable</p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Core Icon Set</h3>
+                <div class="icon-grid">
+                    <div class="icon-item">
+                        <svg class="icon-sample" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21"/>
+                        </svg>
+                        <div class="icon-label">home</div>
+                    </div>
+                    <div class="icon-item">
+                        <svg class="icon-sample" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21L16.65 16.65"/>
+                        </svg>
+                        <div class="icon-label">search</div>
+                    </div>
+                    <div class="icon-item">
+                        <svg class="icon-sample" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                        <div class="icon-label">heart</div>
+                    </div>
+                    <div class="icon-item">
+                        <svg class="icon-sample" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                            <path d="M12 2C13.5 2 15 3.5 15 5C15 6.5 14 7.5 14 9H10C10 7.5 9 6.5 9 5C9 3.5 10.5 2 12 2Z"/>
+                            <ellipse cx="7" cy="13" rx="3" ry="2"/>
+                            <ellipse cx="17" cy="13" rx="3" ry="2"/>
+                            <ellipse cx="7" cy="20" rx="3" ry="2"/>
+                            <ellipse cx="17" cy="20" rx="3" ry="2"/>
+                        </svg>
+                        <div class="icon-label">pawprint</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                body.removeAttribute('data-theme');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

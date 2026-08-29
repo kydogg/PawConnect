@@ -13,9 +13,9 @@ struct PawCard<Content: View>: View {
     var body: some View {
         content()
             .padding()
-            .background(AppColors.backgroundElevated)
-            .clipShape(RoundedRectangle(cornerRadius: Constants.UI.cornerRadius))
-            .shadow(color: .black.opacity(0.08), radius: 8, y: 2)
+            .background(AppColor.backgroundElevated)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
+            .cardShadow()
     }
 }
 
@@ -24,10 +24,10 @@ struct PawCard<Content: View>: View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Card Title")
                 .font(.headline)
-                .foregroundStyle(AppColors.textPrimary)
+                .foregroundStyle(AppColor.textPrimary)
             Text("Card description goes here")
                 .font(.subheadline)
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
         }
     }
     .padding()

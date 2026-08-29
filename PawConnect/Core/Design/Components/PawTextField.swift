@@ -18,7 +18,7 @@ struct PawTextField: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(label)
                 .font(.subheadline)
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
 
             Group {
                 if isSecure {
@@ -28,12 +28,12 @@ struct PawTextField: View {
                 }
             }
             .textFieldStyle(.roundedBorder)
-            .tint(AppColors.primarySunset)
+            .tint(AppColor.primarySunset)
 
             if let error {
                 Text(error)
                     .font(.caption)
-                    .foregroundStyle(AppColors.error)
+                    .foregroundStyle(AppColor.error)
             }
         }
     }

@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		840ED2912F16EDC400D585C2 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 840ED2902F16EDC400D585C2 /* Supabase */; };
+		849130E02FA3123B0001E77F /* SwiftFormat in Frameworks */ = {isa = PBXBuildFile; productRef = 849130DF2FA3123B0001E77F /* SwiftFormat */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		848A2B642F143EA40099CD7F /* PawConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PawConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840ED2912F16EDC400D585C2 /* Supabase in Frameworks */,
+				849130E02FA3123B0001E77F /* SwiftFormat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = PawConnect;
 			packageProductDependencies = (
+				840ED2902F16EDC400D585C2 /* Supabase */,
+				849130DF2FA3123B0001E77F /* SwiftFormat */,
 			);
 			productName = PawConnect;
 			productReference = 848A2B642F143EA40099CD7F /* PawConnect.app */;
@@ -96,6 +105,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				840ED27E2F16EDC400D585C2 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				849130DD2FA3121C0001E77F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 848A2B652F143EA40099CD7F /* Products */;
@@ -345,7 +356,36 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		849130DD2FA3121C0001E77F /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.63.2;
+			};
+		};
+		849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nicklockwood/SwiftFormat";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.61.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		840ED2902F16EDC400D585C2 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 840ED27E2F16EDC400D585C2 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		849130DF2FA3123B0001E77F /* SwiftFormat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 849130DE2FA3123B0001E77F /* XCRemoteSwiftPackageReference "SwiftFormat" */;
+			productName = SwiftFormat;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 848A2B5C2F143EA40099CD7F /* Project object */;
 }

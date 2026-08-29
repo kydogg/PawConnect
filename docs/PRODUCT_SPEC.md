@@ -26,6 +26,8 @@ Each feature follows this structure:
 
 # Design System Reference
 
+> **⭐ Source of truth for design tokens.** This section is the canonical definition of PawConnect's colors, type, spacing, radii, and shadows. Every other document (CLAUDE.md, the Asset Library, images.md) must reference these values rather than redefine them. If a token changes, change it **here first**, then propagate. The runtime implementation lives in `AppColors.swift`; this table is what that file must match.
+
 All specifications reference these tokens. Designers and developers must use these exact values.
 
 ## Colors
@@ -46,18 +48,20 @@ All specifications reference these tokens. Designers and developers must use the
 
 ## Typography
 
-| Token Name | Size | Weight | Line Height | Usage |
-|------------|------|--------|-------------|-------|
-| `displayLarge` | 34pt | Bold (700) | 41pt | Hero headlines, welcome screens |
-| `headingH1` | 24pt | Bold (700) | 30pt | Screen titles |
-| `headingH2` | 20pt | Semibold (600) | 26pt | Section headers |
-| `headingH3` | 17pt | Semibold (600) | 22pt | Card titles, emphasized text |
-| `bodyLarge` | 17pt | Regular (400) | 24pt | Primary body text |
-| `bodyRegular` | 15pt | Regular (400) | 21pt | Secondary body text |
-| `bodySmall` | 13pt | Regular (400) | 18pt | Captions, metadata |
-| `buttonLarge` | 17pt | Semibold (600) | 22pt | Primary button labels |
-| `buttonSmall` | 15pt | Medium (500) | 20pt | Secondary button labels |
-| `caption` | 12pt | Regular (400) | 16pt | Timestamps, labels, fine print |
+> **Implementation note:** The point sizes below express **design intent** — the visual hierarchy the designer is targeting. **Do not hardcode these point sizes in SwiftUI.** Implement each token with the mapped semantic font so the app respects Dynamic Type (accessibility text sizing). The pt/line-height columns are for Figma and design review, not for `.font(.system(size:))`.
+
+| Token Name | Design Intent | Weight | SwiftUI Font (use this) | Usage |
+|------------|------|--------|-------------------------|-------|
+| `displayLarge` | 34pt | Bold (700) | `.largeTitle.weight(.bold)` | Hero headlines, welcome screens |
+| `headingH1` | 24pt | Bold (700) | `.title.weight(.bold)` | Screen titles |
+| `headingH2` | 20pt | Semibold (600) | `.title2.weight(.semibold)` | Section headers |
+| `headingH3` | 17pt | Semibold (600) | `.headline` | Card titles, emphasized text |
+| `bodyLarge` | 17pt | Regular (400) | `.body` | Primary body text |
+| `bodyRegular` | 15pt | Regular (400) | `.subheadline` | Secondary body text |
+| `bodySmall` | 13pt | Regular (400) | `.footnote` | Captions, metadata |
+| `buttonLarge` | 17pt | Semibold (600) | `.headline` | Primary button labels |
+| `buttonSmall` | 15pt | Medium (500) | `.subheadline.weight(.medium)` | Secondary button labels |
+| `caption` | 12pt | Regular (400) | `.caption` | Timestamps, labels, fine print |
 
 ## Spacing
 
@@ -3164,7 +3168,7 @@ For initial launch, prioritize:
 4. Implement all States for each screen
 
 ### For Backend Development
-1. Create Convex schema matching Data Requirements
+1. Create Supabase schema matching Data Requirements
 2. Implement endpoints matching API Contract sections
 3. Set up real-time subscriptions where noted
 4. Implement APNs for Live Activities

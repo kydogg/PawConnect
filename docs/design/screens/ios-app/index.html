@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Ios App" name="iOS App UI Kit" subtitle="Interactive click-through prototype" viewport="940x600" -->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PawConnect — iOS UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: #F4ECE0;
+    background-image: radial-gradient(circle at 20% 12%, rgba(251,146,60,0.14), transparent 42%),
+                      radial-gradient(circle at 84% 86%, rgba(234,88,12,0.10), transparent 46%);
+    font-family: var(--font-sans);
+    display: flex; flex-direction: column; align-items: center;
+    min-height: 100%; padding: 32px 16px 56px;
+  }
+  .kit-head { text-align: center; margin-bottom: 22px; }
+  .kit-head h1 { font-size: 22px; font-weight: 700; color: #1F1B17; margin: 0 0 4px; letter-spacing: -0.3px; }
+  .kit-head p { font-size: 14px; color: #8B6F47; margin: 0; }
+  .stage { display: flex; gap: 36px; align-items: flex-start; flex-wrap: wrap; justify-content: center; }
+  .rail { display: flex; flex-direction: column; gap: 6px; width: 184px; padding-top: 8px; }
+  .rail-label { font-size: 11px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+    color: #B08968; padding: 8px 10px 4px; }
+  .chip { text-align: left; border: none; background: #FFFFFF; color: #5D4E37; font-family: var(--font-sans);
+    font-size: 13.5px; font-weight: 500; padding: 10px 14px; border-radius: 11px; cursor: pointer;
+    box-shadow: 0 1px 3px rgba(31,27,23,0.07); transition: all .15s; display: flex; align-items: center; gap: 9px; }
+  .chip:hover { box-shadow: 0 2px 8px rgba(31,27,23,0.12); transform: translateY(-1px); }
+  .chip.active { background: #EA580C; color: #fff; box-shadow: 0 4px 12px rgba(234,88,12,0.3); }
+  .chip .dot { width: 7px; height: 7px; border-radius: 4px; background: #FB923C; flex-shrink: 0; }
+  .chip.active .dot { background: #fff; }
+  .theme-toggle { display: flex; gap: 4px; background: #fff; border-radius: 11px; padding: 4px; box-shadow: 0 1px 3px rgba(31,27,23,0.07); margin-bottom: 6px; }
+  .theme-toggle button { flex: 1; border: none; background: transparent; font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; color: #8B6F47; padding: 7px 0; border-radius: 8px; cursor: pointer; }
+  .theme-toggle button.on { background: #1F1B17; color: #fff; }
+  #root { display: flex; }
+</style>
+</head>
+<body>
+  <div class="kit-head">
+    <h1>PawConnect · iOS UI Kit</h1>
+    <p>Liquid-glass pet care marketplace — tap the phone or jump to any screen</p>
+    <p style="margin-top:6px"><a href="explorations.html" style="color:#EA580C;font-weight:600;font-size:13px;text-decoration:none">→ Open design explorations (Live Activity · search variants)</a></p>
+  </div>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="icons.jsx"></script>
+  <script type="text/babel" src="primitives.jsx"></script>
+  <script type="text/babel" src="ios-frame.jsx"></script>
+  <script type="text/babel" src="shared.jsx"></script>
+  <script type="text/babel" src="screens-a.jsx"></script>
+  <script type="text/babel" src="screens-b.jsx"></script>
+  <script type="text/babel" src="screens-c.jsx"></script>
+
+  <script type="text/babel">
+    const { useState } = React;
+    const {
+      IOSDevice, TabBar,
+      WelcomeScreen, SignInScreen, SearchHomeScreen, SearchResultsScreen,
+      SitterProfileScreen, LiveDetailScreen, LockScreenScreen, MapScreen, BookingRequestScreen,
+      BookingsScreen, MessagesScreen, AccountScreen,
+    } = window;
+
+    // route → { component, tab? , dark? }
+    const TAB_FOR = { home: 'search', bookings: 'bookings', live: 'live', messages: 'messages', account: 'account' };
+    const TAB_ROUTE = { search: 'home', bookings: 'bookings', live: 'live', messages: 'messages', account: 'account' };
+    const TAB_SCREENS = ['home', 'bookings', 'live', 'messages', 'account'];
+
+    const RAIL = [
+      ['Onboarding', [['welcome', 'Welcome'], ['signin', 'Sign In']]],
+      ['Discover',   [['home', 'Search Home'], ['results', 'Results · List'], ['map', 'Results · Map'], ['profile', 'Sitter Profile'], ['book', 'Booking Request']]],
+      ['Live Activity', [['lock', 'Lock Screen ✦'], ['live', 'Care Session']]],
+      ['Account',    [['bookings', 'Bookings'], ['messages', 'Messages'], ['account', 'My Profile']]],
+    ];
+
+    function App() {
+      const [screen, setScreen] = useState('welcome');
+      const [sitter, setSitter] = useState(null);
+      const [theme, setTheme] = useState('light');
+      const go = (s, data) => { if (data) setSitter(data); setScreen(s); };
+
+      const render = () => {
+        switch (screen) {
+          case 'welcome':  return <WelcomeScreen go={go} />;
+          case 'signin':   return <SignInScreen go={go} />;
+          case 'home':     return <SearchHomeScreen go={go} />;
+          case 'results':  return <SearchResultsScreen go={go} />;
+          case 'map':      return <MapScreen go={go} />;
+          case 'profile':  return <SitterProfileScreen sitter={sitter} go={go} />;
+          case 'book':     return <BookingRequestScreen sitter={sitter} go={go} />;
+          case 'live':     return <LiveDetailScreen go={go} />;
+          case 'lock':     return <LockScreenScreen go={go} />;
+          case 'bookings': return <BookingsScreen go={go} />;
+          case 'messages': return <MessagesScreen go={go} />;
+          case 'account':  return <AccountScreen go={go} />;
+          default:         return <WelcomeScreen go={go} />;
+        }
+      };
+
+      const showTab = TAB_SCREENS.includes(screen);
+
+      return (
+        <div className="stage">
+          <div className="rail">
+            <div className="theme-toggle">
+              <button className={theme === 'light' ? 'on' : ''} onClick={() => setTheme('light')}>☀ Light</button>
+              <button className={theme === 'dark' ? 'on' : ''} onClick={() => setTheme('dark')}>☾ Dark</button>
+            </div>
+            {RAIL.map(([group, items]) => (
+              <React.Fragment key={group}>
+                <div className="rail-label">{group}</div>
+                {items.map(([id, label]) => (
+                  <button key={id} className={'chip' + (screen === id ? ' active' : '')}
+                    onClick={() => go(id)}>
+                    <span className="dot"></span>{label}
+                  </button>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <IOSDevice width={390} height={844} dark={screen === 'lock' || theme === 'dark'}>
+            <div data-theme={theme} style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ flex: 1, minHeight: 0 }}>{render()}</div>
+              {showTab && <TabBar active={TAB_FOR[screen]} onChange={(t) => go(TAB_ROUTE[t])} />}
+            </div>
+          </IOSDevice>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

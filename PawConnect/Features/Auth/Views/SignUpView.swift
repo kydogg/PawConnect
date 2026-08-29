@@ -15,7 +15,7 @@ struct SignUpView: View {
     var body: some View {
         ZStack {
             // Background
-            AppColors.backgroundPrimary
+            AppColor.backgroundPrimary
                 .ignoresSafeArea()
 
             ScrollView {
@@ -44,7 +44,7 @@ struct SignUpView: View {
 
                     Spacer(minLength: 32)
                 }
-                .padding(.horizontal, Constants.UI.standardPadding)
+                .padding(.horizontal, AppSpacing.md)
             }
 
             // Loading Overlay
@@ -60,7 +60,7 @@ struct SignUpView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(AppColors.primarySunset)
+                        .foregroundStyle(AppColor.primarySunset)
                 }
             }
         }
@@ -81,11 +81,11 @@ struct SignUpView: View {
             Text("Create Your Account")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-                .foregroundStyle(AppColors.textPrimary)
+                .foregroundStyle(AppColor.textPrimary)
 
             Text("Join our community of pet lovers")
                 .font(.body)
-                .foregroundStyle(AppColors.textSecondary)
+                .foregroundStyle(AppColor.textSecondary)
         }
     }
 
@@ -99,22 +99,22 @@ struct SignUpView: View {
         }
         .signInWithAppleButtonStyle(.black)
         .frame(height: 56)
-        .clipShape(RoundedRectangle(cornerRadius: Constants.UI.cornerRadius))
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 
     private var divider: some View {
         HStack {
             Rectangle()
-                .fill(AppColors.textTertiary.opacity(0.3))
+                .fill(AppColor.textTertiary.opacity(0.3))
                 .frame(height: 1)
 
             Text("or")
                 .font(.caption)
-                .foregroundStyle(AppColors.textTertiary)
+                .foregroundStyle(AppColor.textTertiary)
                 .padding(.horizontal, 16)
 
             Rectangle()
-                .fill(AppColors.textTertiary.opacity(0.3))
+                .fill(AppColor.textTertiary.opacity(0.3))
                 .frame(height: 1)
         }
     }
@@ -155,7 +155,7 @@ struct SignUpView: View {
                     viewModel.showPassword.toggle()
                 } label: {
                     Image(systemName: viewModel.showPassword ? "eye.slash" : "eye")
-                        .foregroundStyle(AppColors.textTertiary)
+                        .foregroundStyle(AppColor.textTertiary)
                         .padding(.trailing, 12)
                         .padding(.top, 24)
                 }
@@ -180,11 +180,11 @@ struct SignUpView: View {
         HStack(spacing: 8) {
             Image(systemName: met ? "checkmark.circle.fill" : "xmark.circle")
                 .font(.caption)
-                .foregroundStyle(met ? AppColors.secondarySage : AppColors.textTertiary)
+                .foregroundStyle(met ? AppColor.secondarySage : AppColor.textTertiary)
 
             Text(text)
                 .font(.caption)
-                .foregroundStyle(met ? AppColors.secondarySage : AppColors.textTertiary)
+                .foregroundStyle(met ? AppColor.secondarySage : AppColor.textTertiary)
         }
     }
 
@@ -200,16 +200,16 @@ struct SignUpView: View {
 
     private var legalFooter: some View {
         Text("By signing up, you agree to our ")
-            .foregroundStyle(AppColors.textTertiary)
+            .foregroundStyle(AppColor.textTertiary)
         +
         Text("Terms of Service")
-            .foregroundStyle(AppColors.primarySunset)
+            .foregroundStyle(AppColor.primarySunset)
         +
         Text(" and ")
-            .foregroundStyle(AppColors.textTertiary)
+            .foregroundStyle(AppColor.textTertiary)
         +
         Text("Privacy Policy")
-            .foregroundStyle(AppColors.primarySunset)
+            .foregroundStyle(AppColor.primarySunset)
     }
 
     private var loadingOverlay: some View {

@@ -46,7 +46,7 @@ struct PawLogo: View {
         VStack(spacing: showAppName ? 12 : 0) {
             // Logo Icon
             RoundedRectangle(cornerRadius: size.cornerRadius)
-                .fill(AppColors.primarySunset)
+                .fill(AppColor.primarySunset)
                 .frame(width: size.iconSize, height: size.iconSize)
                 .overlay {
                     Image(systemName: "pawprint.fill")
@@ -59,12 +59,12 @@ struct PawLogo: View {
                     Text("PawConnect")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundStyle(AppColors.textPrimary)
+                        .foregroundStyle(AppColor.textPrimary)
 
                     if showTagline {
                         Text("Peace of mind, one paw at a time")
                             .font(.body)
-                            .foregroundStyle(AppColors.textSecondary)
+                            .foregroundStyle(AppColor.textSecondary)
                     }
                 }
             }
