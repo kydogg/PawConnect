@@ -19,37 +19,37 @@ struct SignUpView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    // Header
+                // Per-section gaps follow PRODUCT_SPEC § AUTH-02.
+                VStack(alignment: .leading, spacing: 0) {
                     header
-                        .padding(.top, 8)
+                        .padding(.top, AppSpacing.xl)
 
-                    // Apple Sign In
                     appleSignInSection
+                        .padding(.top, AppSpacing.xl)
 
-                    // Divider
-                    divider
+                    PawAuthDivider()
+                        .padding(.top, AppSpacing.lg)
 
-                    // Email Form
                     emailForm
+                        .padding(.top, AppSpacing.lg)
 
-                    // Password Requirements
                     passwordRequirements
+                        .padding(.top, AppSpacing.sm)
 
-                    // Submit Button
                     submitButton
+                        .padding(.top, AppSpacing.xl)
 
-                    // Legal Footer
                     legalFooter
+                        .padding(.top, AppSpacing.md)
 
-                    Spacer(minLength: 32)
+                    Spacer(minLength: AppSpacing.xl)
                 }
                 .padding(.horizontal, AppSpacing.md)
             }
 
             // Loading Overlay
             if viewModel.isLoading {
-                loadingOverlay
+                PawLoadingOverlay(message: "Creating your account...")
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -77,14 +77,13 @@ struct SignUpView: View {
     // MARK: - Subviews
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("Create Your Account")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
+            Text("Create Account")
+                .font(.displayLarge)
                 .foregroundStyle(AppColor.textPrimary)
 
             Text("Join our community of pet lovers")
-                .font(.body)
+                .font(.bodyLarge)
                 .foregroundStyle(AppColor.textSecondary)
         }
     }
@@ -102,25 +101,8 @@ struct SignUpView: View {
         .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 
-    private var divider: some View {
-        HStack {
-            Rectangle()
-                .fill(AppColor.textTertiary.opacity(0.3))
-                .frame(height: 1)
-
-            Text("or")
-                .font(.caption)
-                .foregroundStyle(AppColor.textTertiary)
-                .padding(.horizontal, 16)
-
-            Rectangle()
-                .fill(AppColor.textTertiary.opacity(0.3))
-                .frame(height: 1)
-        }
-    }
-
     private var emailForm: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             // Full Name
             PawTextField(
                 label: "Full Name",
@@ -147,24 +129,15 @@ struct SignUpView: View {
                 label: "Password",
                 text: $viewModel.password,
                 placeholder: "At least 8 characters",
-                isSecure: !viewModel.showPassword
+                isSecure: true,
+                isRevealed: $viewModel.showPassword
             )
             .textContentType(.newPassword)
-            .overlay(alignment: .trailing) {
-                Button {
-                    viewModel.showPassword.toggle()
-                } label: {
-                    Image(systemName: viewModel.showPassword ? "eye.slash" : "eye")
-                        .foregroundStyle(AppColor.textTertiary)
-                        .padding(.trailing, 12)
-                        .padding(.top, 24)
-                }
-            }
         }
     }
 
     private var passwordRequirements: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
             requirementRow(
                 met: viewModel.hasMinLength,
                 text: "8+ characters"
@@ -177,7 +150,7 @@ struct SignUpView: View {
     }
 
     private func requirementRow(met: Bool, text: String) -> some View {
-        HStack(spacing: 8) {
+        HStack(spacing: AppSpacing.sm) {
             Image(systemName: met ? "checkmark.circle.fill" : "xmark.circle")
                 .font(.caption)
                 .foregroundStyle(met ? AppColor.secondarySage : AppColor.textTertiary)
@@ -189,7 +162,7 @@ struct SignUpView: View {
     }
 
     private var submitButton: some View {
-        Button("Create Your Account") {
+        Button("Create Account") {
             Task {
                 await viewModel.signUp()
             }
@@ -199,37 +172,13 @@ struct SignUpView: View {
     }
 
     private var legalFooter: some View {
-        Text("By signing up, you agree to our ")
+        Text("By signing up, you agree to our \(Text("Terms of Service").foregroundStyle(AppColor.primarySunset)) and \(Text("Privacy Policy").foregroundStyle(AppColor.primarySunset))")
+            .font(.caption)
             .foregroundStyle(AppColor.textTertiary)
-        +
-        Text("Terms of Service")
-            .foregroundStyle(AppColor.primarySunset)
-        +
-        Text(" and ")
-            .foregroundStyle(AppColor.textTertiary)
-        +
-        Text("Privacy Policy")
-            .foregroundStyle(AppColor.primarySunset)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
     }
 
-    private var loadingOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-
-            VStack(spacing: 16) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(1.2)
-
-                Text("Creating your account...")
-                    .font(.subheadline)
-                    .foregroundStyle(.white)
-            }
-            .padding(32)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
-        }
-    }
 }
 
 #Preview {

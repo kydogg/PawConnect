@@ -20,37 +20,37 @@ struct SignInView: View {
                 .ignoresSafeArea()
 
             ScrollView {
-                VStack(alignment: .leading, spacing: 24) {
-                    // Header
+                // Per-section gaps follow PRODUCT_SPEC § AUTH-03.
+                VStack(alignment: .leading, spacing: 0) {
                     header
-                        .padding(.top, 8)
+                        .padding(.top, AppSpacing.xl)
 
-                    // Apple Sign In
                     appleSignInSection
+                        .padding(.top, AppSpacing.xl)
 
-                    // Divider
-                    divider
+                    PawAuthDivider()
+                        .padding(.top, AppSpacing.lg)
 
-                    // Email Form
                     emailForm
+                        .padding(.top, AppSpacing.lg)
 
-                    // Forgot Password
                     forgotPasswordLink
+                        .padding(.top, AppSpacing.sm)
 
-                    // Submit Button
                     submitButton
+                        .padding(.top, AppSpacing.xl)
 
-                    // Sign Up Link
                     signUpLink
+                        .padding(.top, AppSpacing.xl)
 
-                    Spacer(minLength: 32)
+                    Spacer(minLength: AppSpacing.xl)
                 }
                 .padding(.horizontal, AppSpacing.md)
             }
 
             // Loading Overlay
             if viewModel.isLoading {
-                loadingOverlay
+                PawLoadingOverlay(message: "Signing in...")
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -81,14 +81,13 @@ struct SignInView: View {
     // MARK: - Subviews
 
     private var header: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: AppSpacing.sm) {
             Text("Welcome Back")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+                .font(.displayLarge)
                 .foregroundStyle(AppColor.textPrimary)
 
             Text("Sign in to continue caring for your pets")
-                .font(.body)
+                .font(.bodyLarge)
                 .foregroundStyle(AppColor.textSecondary)
         }
     }
@@ -106,53 +105,25 @@ struct SignInView: View {
         .clipShape(RoundedRectangle(cornerRadius: AppRadius.md))
     }
 
-    private var divider: some View {
-        HStack {
-            Rectangle()
-                .fill(AppColor.textTertiary.opacity(0.3))
-                .frame(height: 1)
-
-            Text("or")
-                .font(.caption)
-                .foregroundStyle(AppColor.textTertiary)
-                .padding(.horizontal, 16)
-
-            Rectangle()
-                .fill(AppColor.textTertiary.opacity(0.3))
-                .frame(height: 1)
-        }
-    }
-
     private var emailForm: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: AppSpacing.md) {
             // Email
-            TextField("Email", text: $viewModel.email)
-                .textFieldStyle(.roundedBorder)
-                .textContentType(.emailAddress)
-                .keyboardType(.emailAddress)
-                .autocapitalization(.none)
-                .tint(AppColor.primarySunset)
+            PawTextField(
+                text: $viewModel.email,
+                placeholder: "Email"
+            )
+            .textContentType(.emailAddress)
+            .keyboardType(.emailAddress)
+            .autocapitalization(.none)
 
             // Password
-            HStack {
-                Group {
-                    if viewModel.showPassword {
-                        TextField("Password", text: $viewModel.password)
-                    } else {
-                        SecureField("Password", text: $viewModel.password)
-                    }
-                }
-                .textFieldStyle(.roundedBorder)
-                .textContentType(.password)
-                .tint(AppColor.primarySunset)
-
-                Button {
-                    viewModel.showPassword.toggle()
-                } label: {
-                    Image(systemName: viewModel.showPassword ? "eye.slash" : "eye")
-                        .foregroundStyle(AppColor.textTertiary)
-                }
-            }
+            PawTextField(
+                text: $viewModel.password,
+                placeholder: "Password",
+                isSecure: true,
+                isRevealed: $viewModel.showPassword
+            )
+            .textContentType(.password)
         }
     }
 
@@ -163,6 +134,7 @@ struct SignInView: View {
                 // TODO: Navigate to forgot password
             }
             .buttonStyle(.text)
+            .frame(minHeight: 44)
         }
     }
 
@@ -177,7 +149,7 @@ struct SignInView: View {
     }
 
     private var signUpLink: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: AppSpacing.xs) {
             Text("Don't have an account?")
                 .foregroundStyle(AppColor.textSecondary)
 
@@ -187,28 +159,10 @@ struct SignInView: View {
             .fontWeight(.semibold)
             .foregroundStyle(AppColor.primarySunset)
         }
-        .font(.subheadline)
+        .font(.bodyRegular)
         .frame(maxWidth: .infinity)
     }
 
-    private var loadingOverlay: some View {
-        ZStack {
-            Color.black.opacity(0.4)
-                .ignoresSafeArea()
-
-            VStack(spacing: 16) {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(1.2)
-
-                Text("Signing in...")
-                    .font(.subheadline)
-                    .foregroundStyle(.white)
-            }
-            .padding(32)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
-        }
-    }
 }
 
 #Preview {
