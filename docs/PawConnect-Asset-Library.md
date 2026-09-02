@@ -16,6 +16,50 @@ This document catalogs every visual asset required for PawConnect Epics 1-4 (AUT
 
 ---
 
+## Inventory Status (scanned 2026-09-02, tracked in milestones "Asset Sprint 1–3", issues #22–#34)
+
+Legend: ✅ imported to `Assets.xcassets` · 🟡 art exists in `Asset-Staging/` but not imported · ⬜ nothing yet · 🔵 SF Symbol, nothing to generate
+
+| Asset ID | Name | Status | Light | Dark | Notes |
+|----------|------|--------|-------|------|-------|
+| ASSET-001 | App Icon | 🟡 | 🟡 | ⬜ | Shiba master staged as `Brand/AppIcon-1024.png` (the one deliberate non-`@3x` name: an appiconset takes a single 1024 file). `AppIcon.appiconset` slots still empty — #30 fills light; dark/tinted need generation (#23). |
+| ASSET-002 | Logo Lockup | 🟡 | 🟡 | 🟡 | Staged `Brand/LogoLockup@3x.png` + `LogoLockup-dark@3x.png`, scaled. Import in #27. |
+| ASSET-003 | Logo Icon (Paw Mark) | ⬜ | ⬜ | ⬜ | Blocks AUTH-01. Generate in #24, import in #32. |
+| ASSET-010 | Welcome Hero | ✅ | ✅ | ✅ | @2x/@1x backfill in #29. |
+| ASSET-011 | Confetti | ✅ | ✅ | n/a | @2x/@1x backfill in #29. |
+| ASSET-012 | Success Checkmark | ✅ | ✅ | n/a | @2x/@1x backfill in #29. |
+| ASSET-013 | Welcome Hero (Cat) | ✅ | ✅ | ⬜ | Dark not generated (#23). |
+| ASSET-020 | No Pets | 🟡 | 🟡 | 🟡 | Staged light + dark, scaled. Import in #26. |
+| ASSET-021 | No Sitters | 🟡 | 🟡 | 🟡 | Staged light + dark, scaled. Import in #26. |
+| ASSET-022 | No Messages | ✅ | ✅ | ✅ | @2x/@1x backfill in #29. |
+| ASSET-023 | No Bookings | 🟡 | 🟡 | 🟡 | Staged light + dark, scaled. Import in #26. |
+| ASSET-024 | No Reviews | ✅ | ✅ | ✅ | @2x/@1x backfill in #29. |
+| ASSET-025 | No Recommendations | ✅ | ✅ | ⬜ | Dark not generated (#23). |
+| ASSET-030–034 | Service Icons | 🔵 | — | — | `ServiceIcon.swift` in place. |
+| ASSET-040 | Success Icon | 🔵 | — | — | SF `checkmark.circle.fill` permanent. |
+| ASSET-041 | Error Icon | 🔵 | — | — | SF permanent. |
+| ASSET-042 | Warning Icon | 🔵 | — | — | SF permanent. |
+| ASSET-043 | Verified Badge | 🔵 | — | — | SF `checkmark.seal.fill` permanent. |
+| ASSET-044 | Mail Icon | ✅ | ✅ | n/a | Staged copy moved to `Status/`. @2x/@1x backfill in #29. |
+| ASSET-045 | Background Check | 🔵 | — | — | SF permanent. |
+| ASSET-050–054 | Live Activity Icons | 🔵 | — | — | `CareActivityIcon.swift` in place. |
+| ASSET-060 | Dog Avatar | 🟡 | 🟡 | ⬜ | Staged raster, scaled. Import in #28; dark in #23. |
+| ASSET-061 | Cat Avatar | 🟡 | 🟡 | ⬜ | Staged raster, scaled. Import in #28; dark in #23. |
+| ASSET-062 | Person Avatar | ⬜ | ⬜ | ⬜ | Claude SVG in #33. |
+| ASSET-063 | Pet Hero Placeholder | ⬜ | ⬜ | ⬜ | Uncatalogued `Placeholders/DiversePets@3x.png` is the candidate. #34. |
+| ASSET-064 | Sitter Hero Placeholder | ⬜ | ⬜ | ⬜ | #34. |
+| ASSET-065 | Other Pet Avatar | ⬜ | ⬜ | ⬜ | Claude SVG in #33. |
+| ASSET-070 | Map Pin with Price | ⬜ | ⬜ | n/a | Claude SVG in #25. |
+| ASSET-071 | Map Pin Selected | ⬜ | ⬜ | n/a | Claude SVG in #25. |
+
+**Global gaps**
+- Imported imagesets have only the `@3x` slot filled; `@2x`/`@1x` derivatives now exist in staging and are backfilled in #29.
+- Loose catalog-root PNGs removed: the app icon master moved to staging, the Shiba sketch duplicate deleted (identical copy lives at `docs/design/assets/avatar-shiba-sketch.png`).
+
+**Tally**: 9 imported · 7 staged awaiting rename/import · 8 not started · 13 covered by SF Symbols.
+
+---
+
 ## Brand Color Reference
 
 All generation prompts reference these exact hex codes for consistency:
@@ -1011,69 +1055,69 @@ Apply the Tool Selection matrix first — many "Batch" entries below should be S
 ### Batch 1: Sprint 1 Blockers (Auth & Welcome)
 **Must generate before any UI development begins.**
 
-| Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
-|----------|----------|------------|------|---------------------|
-| 1 | ASSET-001 | App Icon | Midjourney + Figma | App Store, SpringBoard |
-| 2 | ASSET-003 | Logo Icon (Paw Mark) | Midjourney | AUTH-01 |
-| 3 | ASSET-010 | Welcome Screen Hero | Midjourney | AUTH-01 |
-| 4 | ASSET-044 | Mail/Envelope Icon | Midjourney *or* SF `envelope.fill` | AUTH-04b |
-| 5 | ASSET-060 | Dog Avatar Placeholder | **Claude SVG** | AUTH-07, AUTH-09 |
-| 6 | ASSET-061 | Cat Avatar Placeholder | **Claude SVG** | AUTH-07 |
-| 7 | ASSET-065 | Other Pet Avatar Placeholder | **Claude SVG** | AUTH-07 |
-| 8 | ASSET-062 | Person Avatar Placeholder | **Claude SVG** *or* SF `person.crop.circle.fill` | AUTH-14 |
+| Status | Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
+|--------|----------|----------|------------|------|---------------------|
+| 🟡 | 1 | ASSET-001 | App Icon | Midjourney + Figma | App Store, SpringBoard |
+| ⬜ | 2 | ASSET-003 | Logo Icon (Paw Mark) | Midjourney | AUTH-01 |
+| ✅ | 3 | ASSET-010 | Welcome Screen Hero | Midjourney | AUTH-01 |
+| ✅ | 4 | ASSET-044 | Mail/Envelope Icon | Midjourney *or* SF `envelope.fill` | AUTH-04b |
+| 🟡 | 5 | ASSET-060 | Dog Avatar Placeholder | **Claude SVG** | AUTH-07, AUTH-09 |
+| 🟡 | 6 | ASSET-061 | Cat Avatar Placeholder | **Claude SVG** | AUTH-07 |
+| ⬜ | 7 | ASSET-065 | Other Pet Avatar Placeholder | **Claude SVG** | AUTH-07 |
+| ⬜ | 8 | ASSET-062 | Person Avatar Placeholder | **Claude SVG** *or* SF `person.crop.circle.fill` | AUTH-14 |
 
 **Estimated time**: 3 Midjourney assets × ~4 generations = 12 generations (~45 min). Plus ~30 min Claude SVG iteration for 4 placeholders. **Total ~1.25 hours.**
 
 ### Batch 2: Sprint 2 Blockers (Onboarding Completion + Pet Profiles)
 **Must generate before sitter onboarding and pet profile screens.**
 
-| Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
-|----------|----------|------------|------|---------------------|
-| 9 | ASSET-011 | Confetti/Celebration | SwiftUI/Lottie animation *or* SF `party.popper` | AUTH-09 |
-| 10 | ASSET-030 | Dog Walking Service Icon | **Claude SVG** | AUTH-11 |
-| 11 | ASSET-031 | Drop-in Visit Service Icon | **Claude SVG** | AUTH-11 |
-| 12 | ASSET-032 | House Sitting Service Icon | **Claude SVG** | AUTH-11 |
-| 13 | ASSET-033 | Boarding Service Icon | **Claude SVG** | AUTH-11 |
-| 14 | ASSET-034 | Daycare Service Icon | **Claude SVG** | AUTH-11 |
-| 15 | ASSET-020 | No Pets Empty State | Midjourney | PET-01 |
-| 16 | ASSET-063 | Pet Photo Hero Placeholder | **Claude SVG** | PET-02 |
+| Status | Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
+|--------|----------|----------|------------|------|---------------------|
+| ✅ | 9 | ASSET-011 | Confetti/Celebration | SwiftUI/Lottie animation *or* SF `party.popper` | AUTH-09 |
+| 🔵 | 10 | ASSET-030 | Dog Walking Service Icon | **Claude SVG** | AUTH-11 |
+| 🔵 | 11 | ASSET-031 | Drop-in Visit Service Icon | **Claude SVG** | AUTH-11 |
+| 🔵 | 12 | ASSET-032 | House Sitting Service Icon | **Claude SVG** | AUTH-11 |
+| 🔵 | 13 | ASSET-033 | Boarding Service Icon | **Claude SVG** | AUTH-11 |
+| 🔵 | 14 | ASSET-034 | Daycare Service Icon | **Claude SVG** | AUTH-11 |
+| 🟡 | 15 | ASSET-020 | No Pets Empty State | Midjourney | PET-01 |
+| ⬜ | 16 | ASSET-063 | Pet Photo Hero Placeholder | **Claude SVG** | PET-02 |
 
 **Estimated time**: 1 Midjourney asset × ~4 generations = 4 generations (~15 min). Plus ~45 min Claude SVG iteration for 6 icons/placeholders. **Total ~1 hour.**
 
 ### Batch 3: Sprint 3 Blockers (Profiles + Search)
 **Must generate before user profiles and search screens.**
 
-| Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
-|----------|----------|------------|------|---------------------|
-| 17 | ASSET-064 | Sitter Profile Hero Placeholder | **Claude SVG** | PROF-02 |
-| 18 | ASSET-002 | Logo Lockup Horizontal | Midjourney | Marketing, PROF-01 |
-| 19 | ASSET-021 | No Sitters Empty State | Midjourney | SRCH-02 |
-| 20 | ASSET-070 | Map Pin with Price | **Claude SVG** | SRCH-03 |
-| 21 | ASSET-071 | Map Pin Selected | **Claude SVG** | SRCH-03 |
-| 22 | ASSET-043 | Verified Badge | SF `checkmark.seal.fill` | PROF-02, SRCH-02 |
-| 23 | ASSET-025 | No Recommendations | Midjourney | SRCH-01 |
+| Status | Priority | Asset ID | Asset Name | Tool | Blocking Screen(s) |
+|--------|----------|----------|------------|------|---------------------|
+| ⬜ | 17 | ASSET-064 | Sitter Profile Hero Placeholder | **Claude SVG** | PROF-02 |
+| 🟡 | 18 | ASSET-002 | Logo Lockup Horizontal | Midjourney | Marketing, PROF-01 |
+| 🟡 | 19 | ASSET-021 | No Sitters Empty State | Midjourney | SRCH-02 |
+| ⬜ | 20 | ASSET-070 | Map Pin with Price | **Claude SVG** | SRCH-03 |
+| ⬜ | 21 | ASSET-071 | Map Pin Selected | **Claude SVG** | SRCH-03 |
+| 🔵 | 22 | ASSET-043 | Verified Badge | SF `checkmark.seal.fill` | PROF-02, SRCH-02 |
+| ✅ (no dark) | 23 | ASSET-025 | No Recommendations | Midjourney | SRCH-01 |
 
 **Estimated time**: 3 Midjourney assets × ~4 generations = 12 generations (~45 min). Plus ~20 min Claude SVG. **Total ~1 hour.**
 
 ### Batch 4: Nice-to-Have (Polish & Completeness)
 **Can ship with SF Symbol fallbacks; generate when time allows.**
 
-| Priority | Asset ID | Asset Name | Recommended Path |
-|----------|----------|------------|------------------|
-| 24 | ASSET-012 | Success Checkmark + Paw | SF `checkmark.circle.fill` (permanent) |
-| 25 | ASSET-013 | Welcome Hero (Cat variant) | Midjourney (defer) |
-| 26 | ASSET-022 | No Messages Empty State | Midjourney (defer) |
-| 27 | ASSET-023 | No Bookings Empty State | Midjourney (defer) |
-| 28 | ASSET-024 | No Reviews Empty State | Midjourney (defer) |
-| 29 | ASSET-040 | Success Icon | SF `checkmark.circle.fill` (permanent) |
-| 30 | ASSET-041 | Error Icon | SF `exclamationmark.triangle.fill` (permanent) |
-| 31 | ASSET-042 | Warning Icon | SF `exclamationmark.circle.fill` (permanent) |
-| 32 | ASSET-045 | Background Check Icon | SF `person.badge.shield.checkmark.fill` (permanent) |
-| 33 | ASSET-050 | Medication Activity Icon | SF `pills.fill` (permanent) |
-| 34 | ASSET-051 | Feeding Activity Icon | SF `cup.and.saucer.fill` (permanent) |
-| 35 | ASSET-052 | Walk Activity Icon | SF `figure.walk` (permanent) |
-| 36 | ASSET-053 | Bathroom Activity Icon | SF `tree.fill` (permanent) |
-| 37 | ASSET-054 | Play Activity Icon | SF `tennisball.fill` (permanent) |
+| Status | Priority | Asset ID | Asset Name | Recommended Path |
+|--------|----------|----------|------------|------------------|
+| ✅ | 24 | ASSET-012 | Success Checkmark + Paw | SF `checkmark.circle.fill` (permanent) |
+| ✅ (no dark) | 25 | ASSET-013 | Welcome Hero (Cat variant) | Midjourney (defer) |
+| ✅ | 26 | ASSET-022 | No Messages Empty State | Midjourney (defer) |
+| 🟡 | 27 | ASSET-023 | No Bookings Empty State | Midjourney (defer) |
+| ✅ | 28 | ASSET-024 | No Reviews Empty State | Midjourney (defer) |
+| 🔵 | 29 | ASSET-040 | Success Icon | SF `checkmark.circle.fill` (permanent) |
+| 🔵 | 30 | ASSET-041 | Error Icon | SF `exclamationmark.triangle.fill` (permanent) |
+| 🔵 | 31 | ASSET-042 | Warning Icon | SF `exclamationmark.circle.fill` (permanent) |
+| 🔵 | 32 | ASSET-045 | Background Check Icon | SF `person.badge.shield.checkmark.fill` (permanent) |
+| 🔵 | 33 | ASSET-050 | Medication Activity Icon | SF `pills.fill` (permanent) |
+| 🔵 | 34 | ASSET-051 | Feeding Activity Icon | SF `cup.and.saucer.fill` (permanent) |
+| 🔵 | 35 | ASSET-052 | Walk Activity Icon | SF `figure.walk` (permanent) |
+| 🔵 | 36 | ASSET-053 | Bathroom Activity Icon | SF `tree.fill` (permanent) |
+| 🔵 | 37 | ASSET-054 | Play Activity Icon | SF `tennisball.fill` (permanent) |
 
 **Estimated time**: 4 Midjourney assets × ~4 generations = 16 generations (~1 hour). Most of Batch 4 ships with SF Symbols at zero cost.
 
