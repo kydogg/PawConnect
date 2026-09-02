@@ -9,7 +9,7 @@
 - Phase numbers map to your sprint plan. Don't skip phases — Phase 0 unblocks everything.
 - Cross-references like `AUTH-01` point to sections in `PRODUCT_SPEC.md`. Don't re-read the spec for every task — read it once per screen.
 - Asset references like `Batch 2` point to sections in `PawConnect-Unified-Asset-Library.md`.
-- Strikethrough or check off. Move done items to a separate `DONE.md` weekly so this list stays scannable.
+- Strikethrough or check off. Move done items to `DONE.md` weekly so this list stays scannable — completed work lives there now.
 
 **Estimated total:** 16–22 weeks part-time at 10–15 hr/week.
 
@@ -19,23 +19,12 @@
 
 Nothing ships without this. Do it once, do it right.
 
+**Status: complete except the items below** — tooling, backend infra, design system, asset pipeline, Batch 2, all components, and architecture plumbing are done. See `DONE.md`.
+
 ### Project & Tooling
-- [x] Create new Xcode project: SwiftUI App, iOS 26 minimum deployment, organization identifier set
-- [x] Configure bundle identifier and team for code signing
-- [x] Initialize Git repo, push to GitHub (private)
-- [x] Set up GitFlow: `main`, `develop`, feature branches — issue-numbered `feature/<issue#>-<slug>` off `develop`; `develop` feeds TestFlight; `main` moves only on gated release PRs (restructured 2026-08-29, PRs #12–#19)
 - [ ] Enable GitHub branch-protection rules on `main` and `develop`
-- [x] Add `.gitignore` (Xcode template + add `.DS_Store`, `.env`, `xcuserdata/`)
-- [x] Create `README.md` with setup instructions for future-you
-- [x] Set up Swift Package Manager dependencies file
-- [x] Add SwiftLint as SPM dependency + `.swiftlint.yml` config
-- [x] Add SwiftFormat (or use Xcode's built-in)
 
 ### Backend Infrastructure
-- [x] Supabase project created (`jculjhfkganixztkswjp`, us-east-2) — direct SDK + RLS per `docs/adr/0001`, no Edge Functions for CRUD
-- [x] Migration `0001_initial_schema.sql` applied (tables, signup trigger, RLS)
-- [x] Migration `0002_storage_buckets.sql` applied
-- [x] Supabase CLI linked; migration history repaired; `supabase db push` workflow working (`0003` pushed 2026-09-02)
 - [ ] If Supabase Realtime: enable Realtime on Supabase tables that drive Live Activity state
 
 ### Capabilities & Entitlements
@@ -46,77 +35,14 @@ Nothing ships without this. Do it once, do it right.
 - [ ] Generate APNs auth key in Apple Developer portal, save to 1Password
 - [ ] Configure App Groups (needed for Live Activity ↔ main app data sharing)
 
-### Design System (in Xcode)
-- [x] Create `Assets.xcassets` color sets for every token in `PRODUCT_SPEC.md` Design System Reference (with light + dark variants):
-  - [x] `primarySunset`, `primaryTerracotta`
-  - [x] `secondarySage`, `secondaryAmber`, `secondaryPeach`
-  - [x] `backgroundPrimary`, `backgroundElevated`
-  - [x] `textPrimary`, `textSecondary`, `textTertiary`
-  - [x] `border`
-- [x] `AppColor.swift` — typed accessors for all color sets
-- [x] `AppFont.swift` — typography extension matching all 10 typography tokens
-- [x] `AppSpacing.swift` — spacing constants (xxs through xxl)
-- [x] `AppRadius.swift` — corner radius constants
-- [x] `AppShadow.swift` — three shadow ViewModifiers (card/float/modal)
-- [x] Verify all tokens render correctly in light + dark on a test view (ComponentGallery + AUTH-01 simulator screenshots, 2026-08-25)
-
-### Asset Pipeline Setup (do once)
-
-This sets up the Midjourney-to-Xcode workflow. Reference: `PawConnect-Unified-Asset-Library.md` for every prompt, dimension, and Xcode path.
-
-- [x] Confirm staging folder structure exists (Asset-Staging/)
-  - [x] Subfolders match library categories: `Brand/`, `Onboarding/`, `EmptyStates/`, `Placeholders/`, `ServiceIcons/`, `TrustBadges/`, `LiveActivities/`, `Location/`, `Messaging/`, `Booking/`, `Feedback/`, `Backgrounds/`
-- [x] Verify `scale-assets.sh` is executable and runs without errors on a test PNG
-- [x] Create folder structure inside `Assets.xcassets/` matching staging categories (note: `ServiceIcons`/`LiveActivities` later pivoted to SF Symbols via `ServiceIcon`/`CareActivityIcon` — no imagesets needed)
-- [x] Document the workflow somewhere visible (README or top of asset library):
-  1. Paste prompt into Midjourney → download
-  2. Save raw download as `[Name]@3x.png` in matching staging subfolder
-  3. (Dark variant) Save second generation as `[Name]-dark@3x.png`
-  4. Run `./scale-assets.sh PawConnect/Asset-Staging/`
-  5. Drag all three resulting files into the Xcode imageset
-  6. Set "Render As" to Template for icons, Original for illustrations
-- [x] Create `AssetImage.swift` enum (skeleton — fill in as assets land):
-  - [x] File path: `PawConnect/Core/Utilities/AssetImage.swift`
-  - [x] Case stubs for catalog assets, organized by category (service + Live Activity icons excluded — SF Symbols pivot)
-  - [x] Reference: full enum in `PawConnect-Unified-Asset-Library.md` § "SwiftUI Asset Enum"
-
 ### Asset Batch 1: Brand Foundation (blocks Phase 1)
 - [ ] Generate `LogoLockup` (light + dark) — needed for AUTH-01
 - [ ] Generate `AppIcon` master at 1024×1024 — needed before TestFlight
 - [ ] Run scaling script, import to Xcode
 - [ ] Verify in light + dark on a blank SwiftUI view
 
-### Asset Batch 2: Onboarding Hero & Success (blocks Phase 1)
-- [x] Generate `WelcomeHero` (light + dark) — AUTH-01
-- [x] Generate `WelcomeHeroCat` (light + dark) — AUTH-01 alt
-- [x] Generate `Confetti` — AUTH-09
-- [x] Generate `SuccessCheckmark` — AUTH-09
-- [x] Generate `MailIcon` — AUTH-04b
-- [x] Run scaling script, import all to Xcode
-- [x] Update `AssetImage.swift` with these 5 entries
-
-### Reusable Components (build once, use everywhere)
-- [x] `PawButton.swift` — primary, secondary, tertiary styles + loading state
-- [x] `PawTextField.swift` — with label (optional), error state, secure variant, visibility toggle
-- [x] `PawCard.swift` — backgroundElevated + radius + shadow modifier
-- [x] `PawAlert.swift` — banner alert (success/warning/error/info variants)
-- [x] `PawAvatar.swift` — small/medium/large with placeholder fallback
-- [x] `PawProgressIndicator.swift` — segmented progress for onboarding flows
-- [x] `PawEmptyState.swift` — illustration + title + subtitle + CTA
-- [x] `PawLoadingSkeleton.swift` — shimmer placeholder for lists
-- [x] `PawAuthDivider.swift` + `PawLoadingOverlay.swift` — shared auth-screen chrome (added with the AUTH-01/02/03 refit)
-- [x] Build a **ComponentGallery** view (debug-only) that renders every component in every state — your visual regression check
-
 ### Architecture Plumbing
-- [x] `AppError.swift` — typed error enum (network, auth, validation, server)
-- [x] `AuthManager.swift` — observable auth state, token persistence in Keychain (+ `AuthProviding` seam for tests; expired-session guard per supabase-swift emitLocalSessionAsInitialSession opt-in)
-- [x] `KeychainHelper.swift` — wrapper around `KeychainAccess` or hand-rolled
-- [x] `RootView.swift` — switches between auth flow and main app based on auth state
-- [x] Set up `NavigationStack` patterns and a typed `Route` enum per major flow
-- [x] `ImageUploadService.swift` — handles Supabase Storage upload + URL return
-- [x] `LocationService.swift` — wraps `CLLocationManager`, handles permissions
 - [ ] Create base `ViewModel` protocol if you want consistency (optional)
-- [x] First end-to-end smoke test: launch app → see RootView → auth flows run against the live backend
 
 ---
 
@@ -124,24 +50,21 @@ This sets up the Midjourney-to-Xcode workflow. Reference: `PawConnect-Unified-As
 
 Spec: AUTH-01 through AUTH-14. 14 screens, 13 backend endpoints.
 
-**Asset Prerequisites:** Batches 1 + 2 (done in Phase 0). Verify in `AssetImage.swift` before starting screens.
+**Asset Prerequisites:** Batch 2 done; Batch 1 (LogoLockup, AppIcon master) still open in Phase 0. Verify in `AssetImage.swift` before starting screens.
 
 ### Backend (Supabase Auth, direct SDK + RLS — see `docs/adr/0001`)
 
 No Edge Functions in this phase: the app calls Supabase Auth/Postgres/Storage directly via supabase-swift, guarded by Row Level Security. Edge Functions are reserved for server-authoritative flows in later phases (booking state machine, Live Activity pushes).
 
-- [x] Configure Supabase Auth provider: email (auto-confirm enabled 2026-09-02 — signup returns an immediate session per spec)
+Email provider, signup trigger, RLS, storage policies, and direct-SDK sign up/in are done — see `DONE.md`.
+
 - [ ] Configure Supabase Auth provider: Apple (issue #6)
 - [ ] Set up Apple Sign In service ID + return URLs in Apple Developer (issue #6)
-- [x] Migration: Postgres trigger creates `profiles` row on auth signup (shipped in 0001; live-verified 2026-09-02)
-- [x] Migration: RLS policies for `profiles` and `pets` (row-owner read/write; deny cross-user access — 0001 + 0003, applied to hosted DB and probe-verified via `scripts/verify-auth-backend.sh`)
-- [x] Storage bucket policies for profile + pet photo uploads (0002)
-- [x] Auth flows (sign up, sign in) call the SDK directly — no server middleman (password reset lands with AUTH-04, issue #4)
 
 ### Frontend Screens
-- [x] AUTH-01 Welcome — token-refit, verified light + dark in simulator (issue #2)
-- [x] AUTH-02 Sign Up (email) + ViewModel + form validation — Apple button present but stubbed until issue #6 (issues #2/#3)
-- [x] AUTH-03 Sign In + ViewModel — Apple button stubbed until issue #6 (issues #2/#3)
+
+AUTH-01/02/03 are done (issues #2/#3) — see `DONE.md`.
+
 - [ ] AUTH-04 Forgot Password + AUTH-04b success state
 - [ ] AUTH-05 Role Selection (single-select cards)
 - [ ] AUTH-06 Owner: Location (GPS + manual fallback)
@@ -485,4 +408,4 @@ Spec: LIVE-01 through LIVE-10.
 
 ---
 
-*Last updated: September 2, 2026 (Phase 0 ticked off; Phase 1 backend + AUTH-01/02/03 marked done per issues #2/#3/#16). This list is a living document — update it as scope shifts, but resist scope creep.*
+*Last updated: September 2, 2026 (completed items moved to `DONE.md`; this list now holds only open work). This list is a living document — update it as scope shifts, but resist scope creep.*
