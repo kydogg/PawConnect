@@ -1,7 +1,7 @@
 # PawConnect AI Development Guide
 
 > **AI Assistant**: This is your ONLY instruction file. Read this completely before any task.
-> Also reference `PRODUCT_SPEC.md` for detailed screen specifications and the SQL migrations in `supabase/migrations/` (`0001_initial_schema.sql`, `0002_storage_buckets.sql`) for data structure.
+> Also reference `PRODUCT_SPEC.md` for detailed screen specifications, the SQL migrations in `supabase/migrations/` for data structure, and `WORKFLOW.md` for the per-issue development loop and automation inventory.
 
 ---
 
@@ -32,77 +32,9 @@
 
 ---
 
-## FIRST TASK: Project Analysis & Git Setup
+## Project Structure
 
-**Before building ANY new features**, verify Git setup and analyze the project structure.
-
-### Step 0: Verify Git Branching
-
-```bash
-# Check current branch
-git branch --show-current
-
-# Check all branches
-git branch -a
-
-# Check status
-git status
-```
-
-**Required branches must exist:**
-- `main` (production)
-- `develop` (integration)
-
-If missing, create them:
-```bash
-# If only main exists:
-git checkout main
-git checkout -b develop
-git push -u origin develop
-```
-
-**⚠️ STOP if currently on `main` or `develop`:**
-```bash
-# Create feature branch for any work
-git checkout develop
-git pull origin develop
-git checkout -b feature/[task-name]
-```
-
-### Step 1: Examine Current Structure
-
-```bash
-# Run this to see what exists
-find . -name "*.swift" -type f | head -50
-ls -la
-```
-
-### Step 2: Identify Issues
-
-Look for these common problems:
-- [ ] Files in wrong locations (Views in Models folder, etc.)
-- [ ] Duplicate or unused files
-- [ ] Non-MVVM patterns (business logic in Views)
-- [ ] Missing folder structure
-- [ ] Unnecessary boilerplate
-- [ ] Old iOS patterns (ObservableObject instead of @Observable)
-
-### Step 3: Report Before Restructuring
-
-Before making changes, report:
-```
-CURRENT STRUCTURE ANALYSIS:
-- Root files: [list]
-- Folder organization: [describe]
-- Issues found: [list specific problems]
-- Recommended changes: [list]
-
-Proceed with restructuring? [wait for confirmation]
-```
-
-### Step 4: Target Structure
-
-The project MUST follow this structure:
+Phase 0 restructuring is long done — this tree is the reference for where new files go. Views in `Features/<Feature>/Views/`, ViewModels beside them, shared pieces in `Core/`, models in `Models/`. If a needed folder doesn't exist yet, create it here, not somewhere new.
 
 ```
 PawConnect/
@@ -198,37 +130,6 @@ PawConnect/
     └── Info.plist
 ```
 
-### Step 5: Restructuring Rules
-
-When reorganizing:
-
-1. **Move files, don't copy** - Avoid duplicates
-2. **Update imports** - Fix any broken references
-3. **Remove empty files** - Delete placeholder/stub files with no content
-4. **Remove unused code** - Delete commented-out code blocks
-5. **Consolidate duplicates** - If two files do similar things, merge them
-6. **Fix naming** - Use consistent naming (FeatureView.swift, FeatureViewModel.swift)
-
-### What to DELETE
-
-- [ ] Empty Swift files (just import statements)
-- [ ] Commented-out code blocks
-- [ ] Duplicate model definitions
-- [ ] Unused asset files
-- [ ] Test/example files not needed for production
-- [ ] Old iOS patterns (ObservableObject classes if @Observable exists)
-
-### What to KEEP
-
-- [ ] All working View files
-- [ ] All ViewModel files with logic
-- [ ] Model definitions (consolidate if duplicated)
-- [ ] Asset catalogs
-- [ ] Info.plist and entitlements
-- [ ] Package.swift / SPM dependencies
-
----
-
 ## Git Branching Strategy (GitFlow)
 
 **All development MUST follow proper branching practices. No exceptions.**
@@ -236,13 +137,13 @@ When reorganizing:
 ### Branch Structure
 
 ```
-main (production)
+main (App Store releases only — moves via gated PR)
   │
-  └── develop (integration)
+  └── develop (integration — feeds TestFlight)
         │
-        ├── feature/AUTH-01-welcome-screen
-        ├── feature/AUTH-02-sign-up
-        ├── feature/PET-01-my-pets-list
+        ├── feature/3-email-password-auth
+        ├── feature/16-unit-tests
+        ├── docs/sprint1-adr-0001
         └── ...
 ```
 
@@ -258,40 +159,50 @@ main (production)
 
 ### Branch Naming Convention
 
+Branches are named for their **GitHub issue number**: `<type>/<issue#>-<slug>`.
+
 ```bash
-# Features - use ticket/spec ID
-feature/AUTH-01-welcome-screen
-feature/AUTH-02-sign-up
-feature/PET-01-my-pets-list
-feature/BOOK-03-select-dates
+# Features — GitHub issue number + short slug (spec ID in the slug when useful)
+feature/4-auth-04-forgot-password
+feature/16-unit-tests
+feature/36-main-tab-shell
 
 # Bugs
-bugfix/fix-login-crash
-bugfix/AUTH-02-email-validation
+bugfix/21-login-crash
+
+# Docs / chores (no tracking issue needed)
+docs/sprint1-adr-0001
+chore/phase-0-foundation
 
 # Hotfixes (production emergencies only)
 hotfix/critical-auth-fix
 ```
 
+The base branch is a workflow rule — always `develop` — never part of the name (git refuses names nested under an existing branch like `develop/...`).
+
 ### Workflow: Starting a New Feature
 
 ```bash
-# 1. Always start from develop
-git checkout develop
-git pull origin develop
+# 0. Read the issue first
+gh issue view <N> --comments
 
-# 2. Create feature branch
-git checkout -b feature/AUTH-01-welcome-screen
+# 1. Preferred: isolated worktree per session (safe with parallel sessions)
+scripts/new-session.sh <N> <slug>
 
-# 3. Make commits (small, atomic, descriptive)
-git add .
-git commit -m "feat(auth): add WelcomeView with logo and CTAs"
+# 1b. Or manually — always start from fresh develop
+git checkout develop && git pull origin develop
+git checkout -b feature/<N>-<slug>
 
-# 4. Push feature branch
-git push -u origin feature/AUTH-01-welcome-screen
+# 2. Make commits (small, atomic, descriptive)
+git add <files>
+git commit -m "feat(auth): add ForgotPasswordView skeleton"
 
-# 5. When complete: Create Pull Request → develop
-# 6. After PR approval: Merge and delete feature branch
+# 3. Before merging: check for cross-branch conflicts
+scripts/check-merge-conflicts.sh
+
+# 4. Push, PR → develop, merge, delete branch
+git push -u origin feature/<N>-<slug>
+gh pr create --base develop --body "Closes #<N> ..."
 ```
 
 ### Commit Message Convention (Conventional Commits)
