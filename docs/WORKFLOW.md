@@ -21,10 +21,14 @@ Work in dependency order (an issue's "Blocked by" line). One issue = one branch 
 
 ### 2. Branch (always off fresh develop)
 ```bash
+# Preferred — isolated worktree per session (parallel-session safe):
+scripts/new-session.sh <N> <slug>           # worktree + feature/<N>-<slug> off origin/develop, opens Claude Code inside
+
+# Or manually:
 git checkout develop && git pull origin develop
 git checkout -b feature/<N>-<slug>          # e.g. feature/4-auth-04-forgot-password
 ```
-Prefixes: `feature/` (issue work) · `bugfix/` · `docs/`, `chore/` (no issue needed). Base is **always `develop`** — that's a rule, not part of the name.
+Prefixes: `feature/` (issue work) · `bugfix/` · `docs/`, `chore/` (no issue needed). Base is **always `develop`** — that's a rule, not part of the name. Multiple Claude sessions share the main checkout; a SessionStart hook (`.claude/settings.json`) warns sessions starting there to move into a worktree before editing.
 
 ### 3. Build with atomic commits
 One logical change per commit, Conventional Commits format (`feat(auth): …`, `fix(backend): …`, `test(auth): …`). Commit after every file-level change; never batch unrelated edits. Read the screen's `PRODUCT_SPEC.md` section once before coding; use only design tokens (`AppColor`/`AppFont`/`AppSpacing`/`AppRadius`/`AppShadow`) and Paw components.
@@ -46,6 +50,7 @@ Run `/code-review` (or the two-axis standards+spec review) on the diff since `de
 
 ### 6. PR → develop → merge → close
 ```bash
+scripts/check-merge-conflicts.sh            # trial-merges every active branch vs develop + pairwise; exit 1 = conflicts
 git push -u origin feature/<N>-<slug>
 gh pr create --base develop --title "..." --body "Closes #<N> ..."
 gh pr merge --merge
@@ -100,6 +105,7 @@ Pipeline: generate → save to `PawConnect/Asset-Staging/<Category>/` as `[Name]
 ## Known open hooks (don't re-derive)
 
 - **Branch protection** on `main`/`develop` — not yet enabled (checklist item)
+- **`feature/project-setup`** — the frozen pre-restructure mega-branch; fully re-homed and merged, kept only pending Kyle's deletion call. It's the sole branch the conflict checker flags — ignore it
 - **Capabilities/entitlements** — none configured yet; blocks Sign in with Apple (#6), Push, Live Activities
 - **CI** — no GitHub Actions yet; the headless build + test commands above are ready to drop into a workflow file when wanted
 - **TestFlight** — needs the AppIcon master (Asset Batch 1, in flight on the asset sprints) before first upload

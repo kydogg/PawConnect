@@ -43,7 +43,7 @@ Done items moved out of `PawConnect-Master-Checklist.md` to keep it scannable (p
 
 ### Asset Batch 2: Onboarding Hero & Success
 - [x] `WelcomeHero` (light + dark) — AUTH-01
-- [x] `WelcomeHeroCat` (light + dark) — AUTH-01 alt
+- [x] `WelcomeHeroCat` (light only; dark variant tracked in issue #23) — AUTH-01 alt
 - [x] `Confetti` — AUTH-09
 - [x] `SuccessCheckmark` — AUTH-09
 - [x] `MailIcon` — AUTH-04b

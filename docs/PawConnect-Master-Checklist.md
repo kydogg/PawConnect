@@ -76,6 +76,7 @@ AUTH-01/02/03 are done (issues #2/#3) — see `DONE.md`.
 - [ ] AUTH-12 Sitter: Availability (week grid)
 - [ ] AUTH-13 Sitter: Rates (per service inputs)
 - [ ] AUTH-14 Sitter: Bio & Photo
+- [ ] MainTabView home shell (role-based tabs, stub content) — the "Home" destination AUTH-09 and post-sign-in routing navigate to (issue #36)
 
 ### Cross-Cutting
 - [ ] Apple Sign In end-to-end test: new user + returning user paths (issue #6)
