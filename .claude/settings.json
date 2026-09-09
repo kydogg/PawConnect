@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if git rev-parse --is-inside-work-tree >/dev/null 2>&1 && [ \"$(git rev-parse --git-dir)\" = \"$(git rev-parse --git-common-dir)\" ]; then echo '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"MULTI-SESSION SAFETY (PawConnect): this session started in the SHARED main checkout. Multiple Claude sessions share this working tree and the checked-out branch can change at any moment. If this session will edit files or commit (implementation work), move into an isolated worktree BEFORE touching files: use the EnterWorktree tool, or relaunch via scripts/new-session.sh <issue#> <slug> (branches off develop and opens Claude Code in the worktree). Planning or read-only sessions may stay, but must re-verify the current branch before any commit. Before merging into develop or main, run scripts/check-merge-conflicts.sh and resolve reported conflicts.\"}}'; fi",
+            "statusMessage": "Checking worktree isolation"
+          }
+        ]
+      }
+    ]
+  }
+}
