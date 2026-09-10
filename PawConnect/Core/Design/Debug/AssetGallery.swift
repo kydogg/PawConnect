@@ -15,14 +15,20 @@ struct AssetGallery: View {
     /// Assets currently imported into Assets.xcassets. Add cases here as more
     /// art lands so they show up in the gallery.
     private let assets: [AssetImage] = [
+        .logoLockup,
         .welcomeHero,
         .welcomeHeroCat,
         .confetti,
         .successCheckmark,
         .mailIcon,
+        .emptyNoPets,
+        .emptyNoSitters,
         .emptyNoMessages,
+        .emptyNoBookings,
         .emptyNoReviews,
         .emptyNoRecommendations,
+        .dogAvatar,
+        .catAvatar,
     ]
 
     var body: some View {
@@ -56,7 +62,12 @@ struct AssetGallery: View {
     }
 }
 
-#Preview {
+#Preview("Light") {
     AssetGallery()
+}
+
+#Preview("Dark") {
+    AssetGallery()
+        .preferredColorScheme(.dark)
 }
 #endif
